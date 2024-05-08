@@ -15,6 +15,8 @@ public class MainGUI {
 
     public static final int NUM_GENERATOR_PANELS = 3;
 
+    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(100, 500);
+
 
     public JPanel mainPanel()
     {
@@ -38,7 +40,7 @@ public class MainGUI {
 
         cont.add(new JLabel("College List"), BorderLayout.NORTH);
 
-        
+
 
         return cont;
     }
@@ -46,7 +48,7 @@ public class MainGUI {
     public JPanel infoDisplayWindow(String name, String methodCalled)
     {
         JPanel cont = new JPanel(new BorderLayout());
-        cont.setPreferredSize(new Dimension(100, 500));
+        cont.setPreferredSize(DISPLAY_WINDOW_DIMENSTIONS);
 
         //area label
         cont.add(new JLabel(name), BorderLayout.NORTH);
