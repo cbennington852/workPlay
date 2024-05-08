@@ -3,6 +3,7 @@ package org.example;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import javax.swing.*;
 
@@ -14,6 +15,8 @@ public class Main {
         System.out.println("State " + college.getState());
         System.out.println("City " + college.getCity());
         System.out.println("Virtual Tour " + college.getVirtualTourLink());
+
+
 
 
         CollegeList listOne = new CollegeList();

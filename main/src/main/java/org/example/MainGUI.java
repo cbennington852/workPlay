@@ -71,7 +71,6 @@ public class MainGUI {
 
         collegeListTextArea = new JTextArea();
         collegeListTextArea.setBorder(new JTextField().getBorder());
-        collegeListTextArea.setSelectionColor(new JTextField().getSelectionColor());
 
         cont.add(collegeListTextArea, BorderLayout.CENTER);
 
@@ -88,6 +87,7 @@ public class MainGUI {
 
         //editable text area
         JTextArea area = new JTextArea();
+        area.setBorder(new JTextField().getBorder());
         area.setPreferredSize(new Dimension(80,400));
         cont.add(area, BorderLayout.CENTER);
 
@@ -113,7 +113,7 @@ public class MainGUI {
         });
 
         JPanel bottom = new JPanel(new BorderLayout());
-        bottom.add(generatorButton, BorderLayout.WEST);
+        bottom.add(generatorButton, BorderLayout.CENTER);
         bottom.add(copyButton, BorderLayout.EAST);
 
         cont.add(bottom, BorderLayout.SOUTH);
