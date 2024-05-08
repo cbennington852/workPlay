@@ -13,23 +13,48 @@ public class MainGUI {
 
     CollegeList collegeList;
 
+    JTextArea collegeListTextArea;
+
     public static final int NUM_GENERATOR_PANELS = 3;
 
-    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(100, 500);
+    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(300, 500);
+    public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(200,80);
+
+    public final String topTextbox = "Please enter college names " +
+            "\n names can be aliases,  " +
+            "\n EX: UW, WSU, SAPC" +
+            "\n if a state is entered it will be interpreted a school" +
+            "\n EX: Washington  -> Washington State University";
 
 
     public JPanel mainPanel()
     {
         JPanel cont = new JPanel(new BorderLayout());
         //West is the main college list
-        cont.add(collegeListDisplayWindow(),BorderLayout.WEST);
+        JPanel east = new JPanel(new BorderLayout());
+
+        JLabel typingtext = new JLabel(topTextbox);
+        east.add(typingtext, BorderLayout.NORTH);
+        east.add(collegeListDisplayWindow(), BorderLayout.CENTER);
+        east.setPreferredSize(COLLEGE_LIST_WINDOW);
+
+        cont.add(east,BorderLayout.WEST);
+        collegeList = new CollegeList();
 
         //East is the info panels for each person
-        JPanel west = new JPanel(new GridLayout(1,NUM_GENERATOR_PANELS, 1,1));
-        west.add(infoDisplayWindow("State", "getAllState"));
-        west.add(infoDisplayWindow("City", "getAllCity"));
-        west.add(infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks"));
-        cont.add(west, BorderLayout.EAST);
+        JPanel west = new JPanel();
+        JTabbedPane generatorInfoPanels = new JTabbedPane();
+        generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState"));
+        generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity"));
+        generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks"));
+        west.add(generatorInfoPanels);
+        cont.add(west,BorderLayout.CENTER);
+
+        //North is Blank for now
+        JPanel whiteSpace = new JPanel();
+        Dimension whiteSpaceD = new Dimension(600,30);
+        whiteSpace.setPreferredSize(whiteSpaceD);
+        cont.add(whiteSpace, BorderLayout.NORTH);
 
         return cont;
     }
@@ -40,7 +65,8 @@ public class MainGUI {
 
         cont.add(new JLabel("College List"), BorderLayout.NORTH);
 
-
+        collegeListTextArea = new JTextArea();
+        cont.add(collegeListTextArea, BorderLayout.CENTER);
 
         return cont;
     }
@@ -63,12 +89,14 @@ public class MainGUI {
         generatorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
                 area.setText(methodHandler(methodCalled));
             }
         });
         cont.add(generatorButton, BorderLayout.SOUTH);
         return cont;
     }
+
 
     private String methodHandler (String methodCalled)
     {
@@ -104,7 +132,7 @@ public class MainGUI {
         frame = new JFrame("College List Tool");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
-        frame.setSize(new Dimension(500,500));
+        frame.setSize(new Dimension(700,600));
 
         ///////////////////////////////////
         //Splash screen

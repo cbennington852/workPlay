@@ -49,24 +49,85 @@ public class College {
             "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     };
 
-    College (String inputName)
+    College (String inputNameinput)
     {
-        this.inputName = inputName;
+        inputName = inputNameinput;
         proccessInputName();
         locateBasicData();
+    }
 
+    @Override
+    public String toString() {
+        return "College{" +
+                "inputName='" + inputName + '\'' +
+                ", name='" + name + '\'' +
+                ", alias='" + alias + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city  +
+                "}\n";
     }
 
     private void proccessInputName()
     {
         //case 4: is normal, and on list.
-        name = inputName;
+        if (collegeNameExists(inputName))
+        {
+            name = inputName;
+
+        }
+        //Case 2: input is an alias EX: UW, GU, EWU
+        else if(inputName.length() < 5) // looks like an Alias
+        {
+            //Technique: search URLs, beacuse they usually have the Alias in them.
+            name = locateNameViaAlias(inputName);
+        }
 
         //Case 1: input is a state. tranform into state school
+        else if (Arrays.asList(stateNames).contains(inputName))
+        {
+            //is a state, will now tranform into state school name
+            name = inputName + " State University";
+        }
+        else
+        {
+            name = "Not on List";
 
+        }
 
-        //Case 2: input is an alias EX: UW, GU, EWU
         //Case 3: input is university without univeristy name, Gonzaga, Arizona
+        //will be processed post
+    }
+
+    private static boolean allUpper(String input) {
+        return input.equals(input.toUpperCase());
+    }
+
+    private String locateNameViaAlias(String input)
+    {
+        String exelPath = "main/src/main/data/University and College Websites (1).xlsx";
+        String sheetName = "Sheet1";
+        ExelUtils utils = new ExelUtils(exelPath,sheetName);
+        XSSFSheet workSheet = utils.getSheet();
+        //itternates thru each cell
+        //System.out.println(getColumnSize(workSheet, 0));
+        for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
+            int rowIndex = 1;
+            XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
+            String temp = cell.getStringCellValue();
+            temp = temp.substring(7);
+            int x = 0;
+            while ((temp.charAt(x) != '.'))
+            {
+                x++;
+            }
+            temp = temp.substring(0,x);
+            if(temp.equalsIgnoreCase(inputName))
+            {
+                XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(0);
+                return cell2.getStringCellValue();
+            }
+        }
+        return "College Name Not Found";
 
     }
 
@@ -82,7 +143,7 @@ public class College {
             int rowIndex = 0;
 
             XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
-            if (cell.getStringCellValue().equals(collegeName))
+            if (cell.getStringCellValue().equalsIgnoreCase(collegeName))
             {
                 return true;
             }
@@ -105,7 +166,7 @@ public class College {
             int rowIndex = 0;
 
             XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
-            if (cell.getStringCellValue().equals(name))
+            if (cell.getStringCellValue().equalsIgnoreCase(name))
             {
 
                 //found college
@@ -156,7 +217,7 @@ public class College {
 
                 lineNum++;
                 //found line
-                if(line.equals("<td>"+name+"</td>")) {
+                if(line.equalsIgnoreCase("<td>"+name+"</td>")) {
                     String result  = scanner.nextLine();
 
                     //chop off font gibberish

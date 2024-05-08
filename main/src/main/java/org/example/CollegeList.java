@@ -20,20 +20,21 @@ public class CollegeList {
     {
         colleges.clear();
         int x = 0;
-        StringBuilder collegeName = new StringBuilder();
+        String collegeName = "";
         while (x < inp.length())
         {
             if (inp.charAt(x) == '\n')
             {
-                colleges.add(new College(collegeName.toString()));
+                colleges.add(new College(collegeName));
+                collegeName = "";
             }
             else
             {
-                collegeName.append(inp.charAt(x));
+                collegeName = collegeName += inp.charAt(x);
             }
             x++;
         }
-        colleges.add(new College(collegeName.toString()));
+        System.out.println(colleges);
     }
 
     public String getAllState()
