@@ -77,7 +77,7 @@ public class College {
         ExelUtils utils = new ExelUtils(exelPath,sheetName);
         XSSFSheet workSheet = utils.getSheet();
         //itternates thru each cell
-        System.out.println(getColumnSize(workSheet, 0));
+        //System.out.println(getColumnSize(workSheet, 0));
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
             int rowIndex = 0;
 
@@ -100,7 +100,7 @@ public class College {
 
         //itternates thru each cell
 
-        System.out.println(getColumnSize(workSheet, 0));
+        //System.out.println(getColumnSize(workSheet, 0));
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
             int rowIndex = 0;
 
