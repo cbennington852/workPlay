@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 
 public class MainGUI {
 
@@ -18,13 +21,13 @@ public class MainGUI {
     public static final int NUM_GENERATOR_PANELS = 3;
 
     public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(300, 500);
-    public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(200,80);
+    public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(500,80);
 
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
             "\n EX: UW, WSU, SAPC" +
-            "\n if a state is entered it will be interpreted a school" +
-            "\n EX: Washington  -> Washington State University";
+            "\n State names automatically interpreted as universities. " +
+            "\n EX: Washington -> Washington State University";
 
 
     public JPanel mainPanel()
@@ -33,7 +36,8 @@ public class MainGUI {
         //West is the main college list
         JPanel east = new JPanel(new BorderLayout());
 
-        JLabel typingtext = new JLabel(topTextbox);
+        JTextArea typingtext = new JTextArea(topTextbox);
+        typingtext.setEnabled(false);
         east.add(typingtext, BorderLayout.NORTH);
         east.add(collegeListDisplayWindow(), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
@@ -66,6 +70,9 @@ public class MainGUI {
         cont.add(new JLabel("College List"), BorderLayout.NORTH);
 
         collegeListTextArea = new JTextArea();
+        collegeListTextArea.setBorder(new JTextField().getBorder());
+        collegeListTextArea.setSelectionColor(new JTextField().getSelectionColor());
+
         cont.add(collegeListTextArea, BorderLayout.CENTER);
 
         return cont;
@@ -85,7 +92,7 @@ public class MainGUI {
         cont.add(area, BorderLayout.CENTER);
 
         //buttons to change text area.
-        JButton generatorButton = new JButton("Generate " + name);
+        JButton generatorButton = new JButton("Find " + name);
         generatorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,7 +100,23 @@ public class MainGUI {
                 area.setText(methodHandler(methodCalled));
             }
         });
-        cont.add(generatorButton, BorderLayout.SOUTH);
+
+        //button to copy to clipboard
+        JButton copyButton = new JButton("Copy");
+        copyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection stringSelection = new StringSelection(area.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+            }
+        });
+
+        JPanel bottom = new JPanel(new BorderLayout());
+        bottom.add(generatorButton, BorderLayout.WEST);
+        bottom.add(copyButton, BorderLayout.EAST);
+
+        cont.add(bottom, BorderLayout.SOUTH);
         return cont;
     }
 
@@ -132,7 +155,7 @@ public class MainGUI {
         frame = new JFrame("College List Tool");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
-        frame.setSize(new Dimension(700,600));
+        frame.setSize(new Dimension(780,680));
 
         ///////////////////////////////////
         //Splash screen
