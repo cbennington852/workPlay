@@ -16,6 +16,26 @@ public class CollegeList {
         this.colleges = colleges;
     }
 
+    public void collegeListInput (String inp)
+    {
+        colleges.clear();
+        int x = 0;
+        StringBuilder collegeName = new StringBuilder();
+        while (x < inp.length())
+        {
+            if (inp.charAt(x) == '\n')
+            {
+                colleges.add(new College(collegeName.toString()));
+            }
+            else
+            {
+                collegeName.append(inp.charAt(x));
+            }
+            x++;
+        }
+        colleges.add(new College(collegeName.toString()));
+    }
+
     public String getAllState()
     {
         String result = "";
