@@ -28,15 +28,13 @@ import java.util.Scanner;
 public class College {
 
     private String inputName;
-
     private String name;
-
-    private String alias;
-
     private String state;
     private String city;
 
-    String[] stateNames = {
+    private DataGrabber dataGrabber;
+
+    public static String[] stateNames = {
             "Alabama", "Alaska", "Arizona", "Arkansas", "California",
             "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
             "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
@@ -61,7 +59,6 @@ public class College {
         return "College{" +
                 "inputName='" + inputName + '\'' +
                 ", name='" + name + '\'' +
-                ", alias='" + alias + '\'' +
                 ", state='" + state + '\'' +
                 ", city='" + city  +
                 "}\n";
@@ -102,12 +99,28 @@ public class College {
         return input.equals(input.toUpperCase());
     }
 
+    public String getNetPriceCalcLink()
+    {
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getGovSheet();
+        //itternates thru each cell
+        for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
+            int rowIndex = 3;
+            XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
+
+            if (name.equalsIgnoreCase(cell.getStringCellValue()))
+            {
+                XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(9);
+                return cell2.getStringCellValue();
+            }
+        }
+        return "College Name Not Found";
+    }
+
     private String locateNameViaAlias(String input)
     {
-        String exelPath = "main/src/main/data/University and College Websites (1).xlsx";
-        String sheetName = "Sheet1";
-        ExelUtils utils = new ExelUtils(exelPath,sheetName);
-        XSSFSheet workSheet = utils.getSheet();
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getWorkSheet();
         //itternates thru each cell
         //System.out.println(getColumnSize(workSheet, 0));
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
@@ -133,10 +146,8 @@ public class College {
 
     private boolean collegeNameExists(String collegeName)
     {
-        String exelPath = "main/src/main/data/University and College Websites (1).xlsx";
-        String sheetName = "Sheet1";
-        ExelUtils utils = new ExelUtils(exelPath,sheetName);
-        XSSFSheet workSheet = utils.getSheet();
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getWorkSheet();
         //itternates thru each cell
         //System.out.println(getColumnSize(workSheet, 0));
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
@@ -153,12 +164,8 @@ public class College {
 
     private void locateBasicData ()
     {
-        String exelPath = "main/src/main/data/University and College Websites (1).xlsx";
-        String sheetName = "Sheet1";
-        ExelUtils utils = new ExelUtils(exelPath,sheetName);
-
-        XSSFSheet workSheet = utils.getSheet();
-
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getWorkSheet();
         //itternates thru each cell
 
         //System.out.println(getColumnSize(workSheet, 0));

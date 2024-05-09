@@ -11,6 +11,11 @@ public class CollegeList {
         colleges = new ArrayList<>();
     }
 
+    public void clearList()
+    {
+        colleges.clear();
+    }
+
     public CollegeList(ArrayList<College> colleges)
     {
         this.colleges = colleges;
@@ -43,6 +48,16 @@ public class CollegeList {
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getState()+"\n";
+        }
+        return result;
+    }
+
+    public String getAllNetPriceCalcLink()
+    {
+        String result = "";
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getNetPriceCalcLink()+"\n";
         }
         return result;
     }

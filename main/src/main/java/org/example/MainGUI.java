@@ -20,8 +20,8 @@ public class MainGUI {
 
     public static final int NUM_GENERATOR_PANELS = 3;
 
-    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(300, 500);
-    public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(500,80);
+    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(400, 500);
+    public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(400,80);
 
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
@@ -51,6 +51,7 @@ public class MainGUI {
         generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState"));
         generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity"));
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks"));
+        generatorInfoPanels.addTab("Net Price Calculator Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink"));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -130,6 +131,8 @@ public class MainGUI {
                 return  collegeList.getAllCity();
             case "getAllVirtualTourLinks":
                 return  collegeList.getAllVirtualTourLinks();
+            case "getAllNetPriceCalcLink":
+                return collegeList.getAllNetPriceCalcLink();
             default:
                 return  "";
         }
