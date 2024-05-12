@@ -42,6 +42,21 @@ public class CollegeList {
         System.out.println(colleges);
     }
 
+    public static void updateStateAutoAppend(String inp)
+    {
+        College.stateAutoAppend = inp;
+    }
+
+    public static void readAliases(boolean inp)
+    {
+        College.readAliases = inp;
+    }
+
+    public static void appendUniversityToMatches(boolean inp)
+    {
+        College.appendUniversityToMatches = inp;
+    }
+
     public String getAllState()
     {
         String result = "";

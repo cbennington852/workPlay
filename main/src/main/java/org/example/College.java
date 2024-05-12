@@ -47,11 +47,19 @@ public class College {
             "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     };
 
+    public static String stateAutoAppend;
+
+    public static boolean readAliases;
+    public static boolean appendUniversityToMatches;
+
     College (String inputNameinput)
     {
         inputName = inputNameinput;
         proccessInputName();
         locateBasicData();
+        readAliases = true;
+        appendUniversityToMatches = true;
+        stateAutoAppend = "State University";
     }
 
     @Override
@@ -73,7 +81,7 @@ public class College {
 
         }
         //Case 2: input is an alias EX: UW, GU, EWU
-        else if(inputName.length() < 5) // looks like an Alias
+        else if((inputName.length() < 5) && readAliases) // looks like an Alias
         {
             //Technique: search URLs, beacuse they usually have the Alias in them.
             name = locateNameViaAlias(inputName);
@@ -83,7 +91,7 @@ public class College {
         else if (Arrays.asList(stateNames).contains(inputName))
         {
             //is a state, will now tranform into state school name
-            name = inputName + " State University";
+            name = inputName + stateAutoAppend;
         }
         else
         {
