@@ -103,15 +103,23 @@ public class College {
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getGovSheet();
+
+        for (int x = 0; x < 20; x++)
+        {
+            XSSFCell cell = workSheet.getRow(6).getCell(x);
+            System.out.println(cell);
+        }
+
         //itternates thru each cell
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
-            int rowIndex = 3;
+            int rowIndex = 0;
             XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
-
+            //System.out.println(cell);
             if (name.equalsIgnoreCase(cell.getStringCellValue()))
             {
-                XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(9);
-                return cell2.getStringCellValue();
+                XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(6);
+                String ret = cell2.getStringCellValue();
+                return ret;
             }
         }
         return "College Name Not Found";

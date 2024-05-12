@@ -22,8 +22,8 @@ public class DataGrabber {
 
         String exelPath1 = "main/src/main/data/Big Exel File Source DATA GOV.xlsx";
         String sheetName1 = "Sheet1";
-        ExelUtils utils1 = new ExelUtils(exelPath,sheetName);
-        govSheet = utils.getSheet();
+        ExelUtils utils1 = new ExelUtils(exelPath1,sheetName1);
+        govSheet = utils1.getSheet();
     }
 
     public static DataGrabber getDataGrabber()
