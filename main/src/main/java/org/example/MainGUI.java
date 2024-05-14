@@ -250,16 +250,6 @@ public class MainGUI {
         area.setPreferredSize(new Dimension(80,400));
         cont.add(area, BorderLayout.CENTER);
 
-        //buttons to change text area.
-        JButton generatorButton = new JButton("Find " + name);
-        generatorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
-                area.setText(methodHandler(methodCalled));
-            }
-        });
-
         //button to copy to clipboard
         JButton copyButton = new JButton("Copy");
         copyButton.addActionListener(new ActionListener() {
@@ -270,6 +260,31 @@ public class MainGUI {
                 clipboard.setContents(stringSelection, null);
             }
         });
+
+        //buttons to change text area.
+        JButton generatorButton = new JButton("Find " + name);
+        generatorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //disable the whole screen
+                area.setEnabled(false);
+                generatorButton.setEnabled(false);
+                copyButton.setEnabled(false);
+                //frame.repaint();
+
+                //call backend stuff
+                collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
+                area.setText(methodHandler(methodCalled));
+
+                //re-enable who screen.
+                area.setEnabled(true);
+                generatorButton.setEnabled(true);
+                copyButton.setEnabled(true);
+                //frame.repaint();
+            }
+        });
+
+
 
         JPanel bottom = new JPanel(new BorderLayout());
         bottom.add(generatorButton, BorderLayout.CENTER);
