@@ -13,9 +13,9 @@ public class ExelUtils {
     public static void main(String[] args) {
         String exelPath = "main/src/main/data/University and College Websites (1).xlsx";
         String sheetName = "Sheet1";
-        ExelUtils blag = new ExelUtils(exelPath,sheetName);
+        //ExelUtils blag = new ExelUtils(exelPath,sheetName);
 
-        System.out.println(blag.getRowCount());
+        //System.out.println(blag.getRowCount());
     }
 
     private String exelPath;

@@ -90,6 +90,11 @@ public class College {
             //is a state, will now tranform into state school name
             name = inputName + stateAutoAppend;
         }
+        //case 5: didnt add university to the thing
+        else if (collegeNameExists(inputName + " University"))
+        {
+            name = inputName + " University";
+        }
         else
         {
             name = "Not on List";
@@ -108,12 +113,6 @@ public class College {
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getGovSheet();
-
-        for (int x = 0; x < 20; x++)
-        {
-            XSSFCell cell = workSheet.getRow(6).getCell(x);
-            System.out.println(cell);
-        }
 
         //itternates thru each cell
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){

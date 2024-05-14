@@ -18,6 +18,13 @@ public class Main {
             EWU
             Gonzaga University
             WSU
+
+            Notes:
+            CIPTFBS1 tuition 2023
+            UG enrollment actual.
+
+
+
          */
         FlatLightLaf.setup();
 

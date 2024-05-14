@@ -333,7 +333,7 @@ public class MainGUI {
         mainFrame.addTab("College List", main);
         mainFrame.addTab("Settings", settings);
         mainFrame.addTab("Help", help);
-        mainFrame.addTab("Search bar");
+        mainFrame.addTab("Search bar", searchBar);
         frame.setContentPane(mainFrame);
 
         //Display the window.
