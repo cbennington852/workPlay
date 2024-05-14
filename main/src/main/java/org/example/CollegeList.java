@@ -67,6 +67,16 @@ public class CollegeList {
         return result;
     }
 
+    public String getAllEnrollement()
+    {
+        String result = "";
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getEnrollment()+"\n";
+        }
+        return result;
+    }
+
     public String getAllNetPriceCalcLink()
     {
         String result = "";

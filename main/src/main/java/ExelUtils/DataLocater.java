@@ -10,12 +10,12 @@ public class DataLocater {
 
     public XSSFSheet sheet;
 
-    DataLocater(XSSFSheet sheet)
+    public DataLocater(XSSFSheet sheet)
     {
         this.sheet = sheet;
     }
 
-    public String getCell(String horizantalName, String collegeName)
+    public XSSFCell getCell(String horizantalName, String collegeName)
     {
         XSSFSheet workSheet = sheet;
 
@@ -28,7 +28,7 @@ public class DataLocater {
             if (names.getCell(x).getStringCellValue().equalsIgnoreCase(horizantalName))
             {//found the right row to pull from
                 horizantalPosition = x;
-                x = 1000000;
+                x = 100000000;
             }
         }
 
@@ -40,11 +40,10 @@ public class DataLocater {
             if (collegeName.equalsIgnoreCase(cell.getStringCellValue()))
             {
                 XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(horizantalPosition);
-                String ret = cell2.getStringCellValue();
-                return ret;
+                return cell2;
             }
         }
-        return "College Name Not Found";
+        return workSheet.getRow(0).getCell(0);
     }
 
 

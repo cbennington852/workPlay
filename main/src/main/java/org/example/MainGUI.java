@@ -44,13 +44,14 @@ public class MainGUI {
 
     public JPanel settingsPanel ()
     {
-        int settingsNumRows = 4;
-        JPanel cont = new JPanel(new GridLayout(settingsNumRows,1));
+        JPanel cont = new JPanel();
+        cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
 
         //Dark mode / light mode Stuff.
-        JPanel apperance = new JPanel(new BorderLayout());
+        JPanel apperance = new JPanel();
         apperance.setBorder(new TitledBorder("Appearance"));
         JCheckBox darkMode = new JCheckBox();
+        darkMode.setBorder(new TitledBorder("Appearance"));
         darkMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,7 +78,7 @@ public class MainGUI {
             }
         });
         darkMode.setText("Dark Mode Enabled");
-        apperance.add(darkMode, BorderLayout.CENTER);
+        apperance.add(darkMode);
 
         //College List settings
         int mumCollegeListSettings = 2;
@@ -138,6 +139,7 @@ public class MainGUI {
         JTextArea j1 = new JTextArea("Confused on how to use this application? " +
                 "\n There is a helpful tutorial linked below");
         help.add(j1);
+        j1.setEnabled(false);
 
         JLabel hyperlink = new JLabel("Tutorial Link");
         hyperlink.setForeground(Color.BLUE.darker());
@@ -206,7 +208,8 @@ public class MainGUI {
         generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState"));
         generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity"));
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks"));
-        generatorInfoPanels.addTab("Net Price Calculator Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink"));
+        generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink"));
+        generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -288,6 +291,8 @@ public class MainGUI {
                 return  collegeList.getAllVirtualTourLinks();
             case "getAllNetPriceCalcLink":
                 return collegeList.getAllNetPriceCalcLink();
+            case "getAllEnrollement":
+                return collegeList.getAllEnrollement();
             default:
                 return  "";
         }
@@ -306,7 +311,11 @@ public class MainGUI {
 
     public JPanel searchPanel ()
     {
-        JPanel cont = new JPanel();
+        JPanel cont = new JPanel(new BorderLayout());
+
+        //Search Bar
+        JPanel search = new JPanel(new FlowLayout());
+
 
         return cont;
     }    /**

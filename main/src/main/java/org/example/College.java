@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import ExelUtils.ExelUtils;
+import ExelUtils.*;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -109,25 +110,33 @@ public class College {
         return input.equals(input.toUpperCase());
     }
 
+    public String getEnrollment()
+    {
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getGovSheet();
+        DataLocater loc = new DataLocater(workSheet);
+        String val =  loc.getCell("UGDS",name).getRawValue();
+        if (val.equalsIgnoreCase("INSTNM"))
+        {
+            return "College not Found";
+        }
+        return val;
+    }
+
     public String getNetPriceCalcLink()
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getGovSheet();
-
-        //itternates thru each cell
-        for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
-            int rowIndex = 0;
-            XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
-            //System.out.println(cell);
-            if (name.equalsIgnoreCase(cell.getStringCellValue()))
-            {
-                XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(6);
-                String ret = cell2.getStringCellValue();
-                return ret;
-            }
+        DataLocater loc = new DataLocater(workSheet);
+        String horizantalName = "NPCURL";
+        String val =  loc.getCell(horizantalName,name).getStringCellValue();
+        if (val.equalsIgnoreCase(horizantalName))
+        {
+            return "College not Found";
         }
-        return "College Name Not Found";
+        return val;
     }
+
 
     private String locateNameViaAlias(String input)
     {
