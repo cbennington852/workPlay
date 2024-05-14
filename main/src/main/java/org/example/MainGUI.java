@@ -6,6 +6,7 @@ import com.formdev.flatlaf.IntelliJTheme;
 import org.apache.poi.ss.formula.atp.Switch;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class MainGUI {
 
@@ -23,6 +29,8 @@ public class MainGUI {
     JTextArea collegeListTextArea;
 
     public static final int NUM_GENERATOR_PANELS = 3;
+
+    public static String help_youtube_video_link = "http://www.codejava.net";
 
     public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(400, 500);
     public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(400,80);
@@ -54,7 +62,7 @@ public class MainGUI {
                         throw new RuntimeException(ex);
                     }
                     SwingUtilities.updateComponentTreeUI(frame);
-                    frame.pack();
+                    //frame.pack();
                 }
                 else
                 {
@@ -64,7 +72,7 @@ public class MainGUI {
                         throw new RuntimeException(ex);
                     }
                     SwingUtilities.updateComponentTreeUI(frame);
-                    frame.pack();
+                    //frame.pack();
                 }
             }
         });
@@ -72,19 +80,25 @@ public class MainGUI {
         apperance.add(darkMode, BorderLayout.CENTER);
 
         //College List settings
-        int mumCollegeListSettings = 4;
+        int mumCollegeListSettings = 2;
         JPanel collegeListSettings = new JPanel(new GridLayout(mumCollegeListSettings, 0));
         collegeListSettings.setBorder(new TitledBorder("College List Settings"));
         //college list settings componets
-        collegeListSettings.add(collegeListSettingsComponets("Toggle Wether the Aliases are " +
-                " Automaticly converted into school names" +
-                "\n EX: WSU -> Washington State University" +
-                "\n GU -> Gonzaga University", "Convert Alias", new ActionListener() {
+        JPanel j1 = collegeListSettingsComponets("Toggle Weather the Aliases are Automatically converted into school names\n EX: WSU -> Washington State University", "Do not Convert Alias", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CollegeList.readAliases(!College.readAliases);
             }
+        });
+        collegeListSettings.add(j1);
+        collegeListSettings.add(collegeListSettingsComponets("Interpret university names by name" +
+                "\n EX: Gonzaga -> Gonzaga University", "Do not append university names", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CollegeList.appendUniversityToMatches(!College.appendUniversityToMatches);
+            }
         }));
+
 
 
         cont.add(apperance);
@@ -103,12 +117,14 @@ public class MainGUI {
     {
         JPanel cont = new JPanel(new BorderLayout());
 
-        JLabel descriptionL = new JLabel(description);
+        JTextArea descriptionL = new JTextArea(description);
+        descriptionL.setEnabled(false);
         cont.add(descriptionL, BorderLayout.NORTH);
 
         JRadioButton secection = new JRadioButton(buttonTitle);
         secection.addActionListener(A1);
-        cont.add(secection);
+        cont.add(secection, BorderLayout.SOUTH);
+        cont.setBorder(new EtchedBorder());
 
         return cont;
     }
@@ -117,6 +133,55 @@ public class MainGUI {
     {
         JPanel cont = new JPanel(new BorderLayout());
 
+        JPanel help = new JPanel();
+        help.setLayout(new BoxLayout(help, BoxLayout.Y_AXIS));
+        JTextArea j1 = new JTextArea("Confused on how to use this application? " +
+                "\n There is a helpful tutorial linked below");
+        help.add(j1);
+
+        JLabel hyperlink = new JLabel("Tutorial Link");
+        hyperlink.setForeground(Color.BLUE.darker());
+        hyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        hyperlink.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+
+                    Desktop.getDesktop().browse(new URI(help_youtube_video_link));
+
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        help.add(j1, BorderLayout.NORTH);
+        help.add(hyperlink, BorderLayout.NORTH);
+
+        JPanel bugReport = new JPanel();
+        bugReport.setLayout(new BoxLayout(bugReport, BoxLayout.Y_AXIS));
+
+        cont.add(help, BorderLayout.NORTH);
+        cont.add(bugReport, BorderLayout.CENTER);
         return cont;
     }
 
@@ -238,7 +303,13 @@ public class MainGUI {
             }
         });
     }
-    /**
+
+    public JPanel searchPanel ()
+    {
+        JPanel cont = new JPanel();
+
+        return cont;
+    }    /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
@@ -248,23 +319,25 @@ public class MainGUI {
         frame = new JFrame("College List Tool");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
-        frame.setSize(new Dimension(780,680));
+        frame.setSize(new Dimension(830,660));
 
         //make panels
         MainGUI mainGUI = new MainGUI();
         JPanel main = mainGUI.mainPanel();
         JPanel settings = mainGUI.settingsPanel();
         JPanel help = mainGUI.helpPanel();
+        JPanel searchBar = mainGUI.searchPanel();
 
         //make Jtabbed pane
         JTabbedPane mainFrame = new JTabbedPane();
         mainFrame.addTab("College List", main);
         mainFrame.addTab("Settings", settings);
         mainFrame.addTab("Help", help);
+        mainFrame.addTab("Search bar");
         frame.setContentPane(mainFrame);
 
         //Display the window.
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
     }
 

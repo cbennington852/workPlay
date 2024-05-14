@@ -47,19 +47,16 @@ public class College {
             "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     };
 
-    public static String stateAutoAppend;
+    public static String stateAutoAppend = " State University";
 
-    public static boolean readAliases;
-    public static boolean appendUniversityToMatches;
+    public static boolean readAliases = true;
+    public static boolean appendUniversityToMatches = true;
 
     College (String inputNameinput)
     {
         inputName = inputNameinput;
         proccessInputName();
         locateBasicData();
-        readAliases = true;
-        appendUniversityToMatches = true;
-        stateAutoAppend = "State University";
     }
 
     @Override
