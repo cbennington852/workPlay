@@ -270,17 +270,24 @@ public class MainGUI {
                 area.setEnabled(false);
                 generatorButton.setEnabled(false);
                 copyButton.setEnabled(false);
-                //frame.repaint();
+                frame.repaint();
 
                 //call backend stuff
-                collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
-                area.setText(methodHandler(methodCalled));
+                //calls on a thread so the user can still use the buttons while this is running
+                Thread thread = new Thread(() -> {
+                    // Stuff you want to do.
+                    collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
+                    area.setText(methodHandler(methodCalled));
+                });
+                thread.start();
 
                 //re-enable who screen.
                 area.setEnabled(true);
                 generatorButton.setEnabled(true);
                 copyButton.setEnabled(true);
-                //frame.repaint();
+                frame.repaint();
+
+
             }
         });
 
