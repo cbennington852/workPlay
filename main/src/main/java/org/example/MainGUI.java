@@ -8,6 +8,7 @@ import org.apache.poi.ss.formula.atp.Switch;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -337,10 +338,47 @@ public class MainGUI {
 
         //Search Bar
         JPanel search = new JPanel(new FlowLayout());
+        JTextField searchEntry = new JTextField();
+        searchEntry.setPreferredSize(new Dimension(400,30));
+        JButton searchButton = new JButton("Search");
+        search.add(searchEntry);
+        search.add(searchButton);
+        cont.add(search, BorderLayout.NORTH);
 
+        //search results
+        cont.add(searchResults(new CollegeSearchCard()), BorderLayout.CENTER);
 
         return cont;
-    }    /**
+    }
+
+    public JPanel searchResults(CollegeSearchCard searchCard)
+    {
+        //data entry, replaced with actual card data later.
+        String name = "dummy";
+        String location = "dummy location";
+
+        //main container outside all the stuff
+        JPanel cont = new JPanel();
+        cont.setBorder(new BorderUIResource.EtchedBorderUIResource());
+
+        //basic college info
+        JPanel basicInfo = new JPanel(new FlowLayout());
+        JLabel nameLabel = new JLabel(name);
+        basicInfo.add(nameLabel);
+        JPanel emptySpace = new JPanel();
+        emptySpace.setPreferredSize(new Dimension(500,20));
+        basicInfo.add(emptySpace);
+        JLabel locationLabel = new JLabel(location);
+        basicInfo.add(locationLabel);
+        cont.add(basicInfo);
+
+        return cont;
+    }
+
+
+
+
+    /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
      * event dispatch thread.
