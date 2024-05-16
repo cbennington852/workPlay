@@ -10,13 +10,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,6 +25,8 @@ public class MainGUI {
     CollegeList collegeList;
 
     JTextArea collegeListTextArea;
+
+    JProgressBar bar = new JProgressBar(JProgressBar.HORIZONTAL,0,100);
 
     public static final int NUM_GENERATOR_PANELS = 3;
 
@@ -261,7 +260,7 @@ public class MainGUI {
                 clipboard.setContents(stringSelection, null);
             }
         });
-
+        JPanel bottom = new JPanel(new BorderLayout());
         //buttons to change text area.
         JButton generatorButton = new JButton("Find " + name);
         generatorButton.addActionListener(new ActionListener() {
@@ -272,6 +271,11 @@ public class MainGUI {
                 generatorButton.setEnabled(false);
                 copyButton.setEnabled(false);
                 frame.repaint();
+                System.out.println("HERE?");
+
+                //make a proggress bar
+                bar.setValue(10);
+                bottom.add(bar, BorderLayout.SOUTH);
 
                 //call backend stuff
                 //calls on a thread so the user can still use the buttons while this is running
@@ -279,6 +283,7 @@ public class MainGUI {
                     // Stuff you want to do.
                     collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
                     area.setText(methodHandler(methodCalled));
+                    bottom.remove(bar);
                 });
                 thread.start();
 
@@ -292,9 +297,6 @@ public class MainGUI {
             }
         });
 
-
-
-        JPanel bottom = new JPanel(new BorderLayout());
         bottom.add(generatorButton, BorderLayout.CENTER);
         bottom.add(copyButton, BorderLayout.EAST);
 
@@ -307,15 +309,15 @@ public class MainGUI {
     {
         switch(methodCalled) {
             case "getAllState":
-                return   collegeList.getAllState();
+                return   collegeList.getAllState(bar);
             case "getAllCity":
-                return  collegeList.getAllCity();
+                return  collegeList.getAllCity(bar);
             case "getAllVirtualTourLinks":
-                return  collegeList.getAllVirtualTourLinks();
+                return  collegeList.getAllVirtualTourLinks(bar);
             case "getAllNetPriceCalcLink":
-                return collegeList.getAllNetPriceCalcLink();
+                return collegeList.getAllNetPriceCalcLink(bar);
             case "getAllEnrollement":
-                return collegeList.getAllEnrollement();
+                return collegeList.getAllEnrollement(bar);
             default:
                 return  "";
         }

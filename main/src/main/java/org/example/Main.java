@@ -23,7 +23,6 @@ public class Main {
             CIPTFBS1 tuition 2023
             UG enrollment actual.
 
-
             3409
          */
         FlatLightLaf.setup();

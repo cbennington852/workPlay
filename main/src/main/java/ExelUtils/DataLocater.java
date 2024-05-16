@@ -22,7 +22,7 @@ public class DataLocater {
         //find the position we are looking for
         int horizantalPosition = 0;
         XSSFRow names = sheet.getRow(0);
-        System.out.println(names);
+        //System.out.println(names);
         for (int x = 0; x < names.getPhysicalNumberOfCells(); x++)
         {
             if (names.getCell(x).getStringCellValue().equalsIgnoreCase(horizantalName))

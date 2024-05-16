@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class CollegeList {
@@ -39,7 +40,6 @@ public class CollegeList {
             }
             x++;
         }
-        System.out.println(colleges);
     }
 
     public static void updateStateAutoAppend(String inp)
@@ -57,53 +57,79 @@ public class CollegeList {
         College.appendUniversityToMatches = inp;
     }
 
-    public String getAllState()
+    public String getAllState(JProgressBar bar)
     {
         String result = "";
+        int size = colleges.size();
+
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getState()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
         }
+        bar.setValue(100);
         return result;
     }
 
-    public String getAllEnrollement()
+    public String getAllEnrollement(JProgressBar bar)
     {
         String result = "";
+        int size = colleges.size();
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getEnrollment()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
         }
+
         return result;
     }
 
-    public String getAllNetPriceCalcLink()
+    public String getAllNetPriceCalcLink(JProgressBar bar)
     {
         String result = "";
+        int size = colleges.size();
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getNetPriceCalcLink()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
         }
+
         return result;
     }
 
-    public String getAllCity()
+    public String getAllCity(JProgressBar bar)
     {
         String result = "";
+        int size = colleges.size();
         for (int x = 0; x < colleges.size(); x++)
         {
-            result += colleges.get(x).getCity() +"\n";
+            result += colleges.get(x).getCity()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
         }
+
         return result;
     }
 
-    public String getAllVirtualTourLinks()
+    public String getAllVirtualTourLinks(JProgressBar bar)
     {
         String result = "";
+        int size = colleges.size();
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getVirtualTourLink()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
         }
+
         return result;
     }
 

@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -116,11 +117,13 @@ public class College {
         XSSFSheet workSheet = grabby.getGovSheet();
         DataLocater loc = new DataLocater(workSheet);
         String val =  loc.getCell("UGDS",name).getRawValue();
+        double valInt = Double.parseDouble(val);
+        DecimalFormat formatter = new DecimalFormat("#,###");
         if (val.equalsIgnoreCase("INSTNM"))
         {
             return "College not Found";
         }
-        return val;
+        return formatter.format(valInt);
     }
 
     public String getNetPriceCalcLink()
