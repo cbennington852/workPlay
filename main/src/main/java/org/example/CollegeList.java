@@ -57,6 +57,7 @@ public class CollegeList {
         College.appendUniversityToMatches = inp;
     }
 
+
     public String getAllState(JProgressBar bar)
     {
         String result = "";

@@ -23,6 +23,12 @@ public class Main {
             CIPTFBS1 tuition 2023
             UG enrollment actual.
 
+
+            Url scraper notes:
+            use https://stackoverflow.com/questions/18134718/java-quickest-way-to-check-if-url-exists
+            To check and see if link exists. Should be very easy. maybe only check it for one link
+            EX: student life, and then have it break for a certain amount of time, so its not a cyber attack.
+
             3409
          */
         FlatLightLaf.setup();

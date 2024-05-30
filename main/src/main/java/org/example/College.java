@@ -22,10 +22,11 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 public class College {
 
@@ -48,6 +49,8 @@ public class College {
             "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
             "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     };
+
+    public static String[] possibleStudentLifeUrls = {"studentlife", "student-life","campuslife","campus-life"};
 
     public static String stateAutoAppend = " State University";
 
@@ -141,6 +144,65 @@ public class College {
     }
 
 
+    public String findStudentLifeUrl() throws IOException, InterruptedException {
+        String ret = "";
+
+        /*
+        URL url = new URL("https://www.washington.edu/studentlife");
+        HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+        huc.setRequestMethod("HEAD");
+        int responseCode = huc.getResponseCode();
+
+        if (responseCode == 200) {
+            System.out.println("GOOD");
+        } else {
+            System.out.println("BAD");
+        }
+
+         */
+
+        //plan:
+        //find student life URL from the sheet
+
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getGovSheet();
+        DataLocater loc = new DataLocater(workSheet);
+        String horizantalName = "INSTURL";
+        String val =  loc.getCell(horizantalName,name).getStringCellValue();
+        String urlName = "";
+        if (Objects.equals(val, "INSTNM"))
+        {
+            //did not find the link
+            return "Link not found";
+        }
+        else {
+            //not found thingy
+            urlName = val;
+        }
+        //found url
+        URL url = new URL("");
+
+
+        //search for the student life url
+        for (int x = 0; x < possibleStudentLifeUrls.length; x++)
+        {
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            huc.setRequestMethod("HEAD");
+            int responseCode = huc.getResponseCode();
+
+            if (responseCode != 404) {
+                System.out.println("GOOD");
+                ret = url.toString();
+            } else {
+                System.out.println("BAD");
+            }
+            Thread.sleep(300);
+        }
+
+        return ret;
+    }
+
+
     private String locateNameViaAlias(String input)
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
@@ -168,7 +230,7 @@ public class College {
 
     }
 
-    private boolean collegeNameExists(String collegeName)
+    public boolean collegeNameExists(String collegeName)
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getWorkSheet();
@@ -210,6 +272,10 @@ public class College {
                 //breaks loop
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     private int getColumnSize(XSSFSheet workSheet, int columnNum)

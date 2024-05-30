@@ -397,14 +397,14 @@ public class MainGUI {
         JPanel main = mainGUI.mainPanel();
         JPanel settings = mainGUI.settingsPanel();
         JPanel help = mainGUI.helpPanel();
-        JPanel searchBar = mainGUI.searchPanel();
+        //JPanel searchBar = mainGUI.searchPanel();
 
         //make Jtabbed pane
         JTabbedPane mainFrame = new JTabbedPane();
         mainFrame.addTab("College List", main);
         mainFrame.addTab("Settings", settings);
         mainFrame.addTab("Help", help);
-        mainFrame.addTab("Search bar", searchBar);
+        //mainFrame.addTab("Search bar", searchBar);
         frame.setContentPane(mainFrame);
 
         //Display the window.
