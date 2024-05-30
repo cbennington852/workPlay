@@ -37,7 +37,7 @@ public class MainGUI {
 
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
-            "\n EX: UW, WSU, SAPC" +
+            "\n EX: UW, WSU" +
             "\n State names automatically interpreted as universities. " +
             "\n EX: Washington -> Washington State University";
 

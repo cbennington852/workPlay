@@ -57,6 +57,7 @@ public class College {
     public static boolean readAliases = true;
     public static boolean appendUniversityToMatches = true;
 
+
     College (String inputNameinput)
     {
         inputName = inputNameinput;
@@ -136,7 +137,7 @@ public class College {
         DataLocater loc = new DataLocater(workSheet);
         String horizantalName = "NPCURL";
         String val =  loc.getCell(horizantalName,name).getStringCellValue();
-        if (val.equalsIgnoreCase(horizantalName))
+        if (Objects.equals(val, "INSTNM"))
         {
             return "College not Found";
         }
@@ -223,6 +224,7 @@ public class College {
             if(temp.equalsIgnoreCase(inputName))
             {
                 XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(0);
+                System.out.println(cell2.getStringCellValue());
                 return cell2.getStringCellValue();
             }
         }
