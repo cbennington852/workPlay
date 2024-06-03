@@ -17,6 +17,7 @@ import java.awt.datatransfer.Clipboard;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class MainGUI {
 
@@ -34,6 +35,8 @@ public class MainGUI {
 
     public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(400, 500);
     public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(400,80);
+
+    public ArrayList<JButton> generateButtonList = new ArrayList<>();
 
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
@@ -205,11 +208,11 @@ public class MainGUI {
         //East is the info panels for each person
         JPanel west = new JPanel();
         JTabbedPane generatorInfoPanels = new JTabbedPane();
-        generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState"));
-        generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity"));
-        generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks"));
-        generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink"));
-        generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
+        generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState", false));
+        generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false));
+        generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
+        generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false));
+        //generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -236,7 +239,7 @@ public class MainGUI {
         return cont;
     }
 
-    public JPanel infoDisplayWindow(String name, String methodCalled)
+    public JPanel infoDisplayWindow(String name, String methodCalled, boolean addToList)
     {
         JPanel cont = new JPanel(new BorderLayout());
         cont.setPreferredSize(DISPLAY_WINDOW_DIMENSTIONS);
@@ -296,6 +299,10 @@ public class MainGUI {
 
             }
         });
+        if (addToList)
+        {
+            generateButtonList.add(generatorButton);
+        }
 
         bottom.add(generatorButton, BorderLayout.CENTER);
         bottom.add(copyButton, BorderLayout.EAST);
@@ -353,6 +360,58 @@ public class MainGUI {
         return cont;
     }
 
+    public JPanel multiSearchPanel()
+    {
+       JPanel cont = new JPanel(new BorderLayout());
+        //West is the main college list
+        JPanel east = new JPanel(new BorderLayout());
+
+        JTextArea typingtext = new JTextArea(topTextbox);
+        typingtext.setEnabled(false);
+        east.add(typingtext, BorderLayout.NORTH);
+        east.add(collegeListDisplayWindow(), BorderLayout.CENTER);
+        east.setPreferredSize(COLLEGE_LIST_WINDOW);
+
+        cont.add(east, BorderLayout.WEST);
+        collegeList = new CollegeList();
+
+        JButton searchAll = new JButton("Search All");
+        searchAll.setSize(new Dimension(200,50));
+        searchAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                /*
+                for (int x = 0; x < generateButtonList.size(); x++)
+                {
+                    generateButtonList.get(x).doClick();
+                }
+                 */
+
+                generateButtonList.get(1).doClick();
+                generateButtonList.get(0).doClick();
+            }
+        });
+
+        //East is the info panels for each person
+        JPanel west = new JPanel();
+        west.setLayout(new BoxLayout(west, BoxLayout.Y_AXIS));
+        west.add(searchAll);
+        west.add(infoDisplayWindow("State", "getAllState", true));
+        west.add(infoDisplayWindow("City", "getAllCity", true));
+        west.add(infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", true));
+        west.add(infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", true));
+        cont.add(west, BorderLayout.CENTER);
+
+        //North is Blank for now
+        JPanel whiteSpace = new JPanel();
+        Dimension whiteSpaceD = new Dimension(600, 30);
+        whiteSpace.setPreferredSize(whiteSpaceD);
+        cont.add(whiteSpace, BorderLayout.NORTH);
+
+        return cont;
+    }
+
     public JPanel searchResults(CollegeSearchCard searchCard)
     {
         //data entry, replaced with actual card data later.
@@ -397,6 +456,7 @@ public class MainGUI {
         JPanel main = mainGUI.mainPanel();
         JPanel settings = mainGUI.settingsPanel();
         JPanel help = mainGUI.helpPanel();
+        JPanel multiSearch = mainGUI.multiSearchPanel();
         //JPanel searchBar = mainGUI.searchPanel();
 
         //make Jtabbed pane
@@ -404,6 +464,7 @@ public class MainGUI {
         mainFrame.addTab("College List", main);
         mainFrame.addTab("Settings", settings);
         mainFrame.addTab("Help", help);
+        mainFrame.addTab("MultiSearch", multiSearch);
         //mainFrame.addTab("Search bar", searchBar);
         frame.setContentPane(mainFrame);
 

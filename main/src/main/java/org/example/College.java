@@ -330,13 +330,14 @@ public class College {
                         x++;
                     }
                     result = result.substring(0,x);
+                    result = "=HYPERLINK(\"" + result + "\", \"" + "virtual tour" + "\")";
                     return result;
                 }
             }
         } catch(FileNotFoundException e) {
             //handle this
         }
-        return "Link Not Found";
+        return "virtual tour";
     }
 
 
