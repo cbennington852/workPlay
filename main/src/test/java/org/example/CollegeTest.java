@@ -23,6 +23,7 @@ class CollegeTest {
         assertEquals(c1.getName(), "University of Washington");
     }
 
+    @Test
     public void testSuccessRate ()
     {
         CollegeList list = new CollegeList();
