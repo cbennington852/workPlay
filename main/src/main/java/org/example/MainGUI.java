@@ -5,6 +5,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.IntelliJTheme;
 import org.apache.poi.ss.formula.atp.Switch;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -14,6 +15,8 @@ import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,6 +30,8 @@ public class MainGUI {
 
     JTextArea collegeListTextArea;
 
+    JTextArea collegeListTextAreaMultiSearch;
+
     JProgressBar bar = new JProgressBar(JProgressBar.HORIZONTAL,0,100);
 
     public static final int NUM_GENERATOR_PANELS = 3;
@@ -34,6 +39,7 @@ public class MainGUI {
     public static String help_youtube_video_link = "http://www.codejava.net";
 
     public static final Dimension DISPLAY_WINDOW_DIMENSTIONS = new Dimension(400, 500);
+    public static final Dimension DISPLAY_WINDOW_DIMENSTIONS_MULTI_SEARCH = new Dimension(400,100);
     public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(400,80);
 
     public ArrayList<JButton> generateButtonList = new ArrayList<>();
@@ -137,16 +143,44 @@ public class MainGUI {
     {
         JPanel cont = new JPanel(new BorderLayout());
 
+        Font font1 = new Font("Arial" , Font.PLAIN, 17);
+
         JPanel help = new JPanel();
         help.setLayout(new BoxLayout(help, BoxLayout.Y_AXIS));
         JTextArea j1 = new JTextArea("Confused on how to use this application? " +
                 "\n There is a helpful tutorial linked below");
         help.add(j1);
-        j1.setEnabled(false);
+        j1.setFont(font1);
+        j1.setEditable(false);
 
+        //make links to youtube tut
         JLabel hyperlink = new JLabel("Tutorial Link");
+        hyperlink.setFont(font1);
         hyperlink.setForeground(Color.BLUE.darker());
         hyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addMouse(hyperlink);
+
+        help.add(j1, BorderLayout.NORTH);
+        help.add(hyperlink, BorderLayout.NORTH);
+
+        //bug reports and such
+        JPanel bugReport = new JPanel();
+        bugReport.setLayout(new BoxLayout(bugReport, BoxLayout.Y_AXIS));
+        JTextArea text = new JTextArea("Found a Bug? \n Report the bug here, by emailing me \n c.bennington852@gmail.com \n\n\n" +
+                "This project is made and maintained by Charles Bennington, a current student at Gonzaga" +
+                "\n and part of the graduating class of 2026. ");
+        text.setEditable(false);
+        text.setFont(font1);
+
+        bugReport.add(text);
+
+        cont.add(help, BorderLayout.NORTH);
+        cont.add(bugReport, BorderLayout.CENTER);
+        return cont;
+    }
+
+    private void addMouse(JComponent hyperlink)
+    {
         hyperlink.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -179,15 +213,6 @@ public class MainGUI {
 
             }
         });
-        help.add(j1, BorderLayout.NORTH);
-        help.add(hyperlink, BorderLayout.NORTH);
-
-        JPanel bugReport = new JPanel();
-        bugReport.setLayout(new BoxLayout(bugReport, BoxLayout.Y_AXIS));
-
-        cont.add(help, BorderLayout.NORTH);
-        cont.add(bugReport, BorderLayout.CENTER);
-        return cont;
     }
 
     public JPanel mainPanel()
@@ -199,7 +224,7 @@ public class MainGUI {
         JTextArea typingtext = new JTextArea(topTextbox);
         typingtext.setEnabled(false);
         east.add(typingtext, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(), BorderLayout.CENTER);
+        east.add(collegeListDisplayWindow(false), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 
         cont.add(east,BorderLayout.WEST);
@@ -225,16 +250,23 @@ public class MainGUI {
         return cont;
     }
 
-    public JPanel collegeListDisplayWindow()
+    public JPanel collegeListDisplayWindow(boolean multiSearch)
     {
         JPanel cont = new JPanel(new BorderLayout());
 
         cont.add(new JLabel("College List"), BorderLayout.NORTH);
-
-        collegeListTextArea = new JTextArea();
-        collegeListTextArea.setBorder(new JTextField().getBorder());
-
-        cont.add(collegeListTextArea, BorderLayout.CENTER);
+        if (multiSearch)
+        {
+            collegeListTextAreaMultiSearch = new JTextArea();
+            collegeListTextAreaMultiSearch.setBorder(new JTextField().getBorder());
+            cont.add(collegeListTextAreaMultiSearch, BorderLayout.CENTER);
+        }
+        else
+        {
+            collegeListTextArea = new JTextArea();
+            collegeListTextArea.setBorder(new JTextField().getBorder());
+            cont.add(collegeListTextArea, BorderLayout.CENTER);
+        }
 
         return cont;
     }
@@ -242,7 +274,14 @@ public class MainGUI {
     public JPanel infoDisplayWindow(String name, String methodCalled, boolean addToList)
     {
         JPanel cont = new JPanel(new BorderLayout());
-        cont.setPreferredSize(DISPLAY_WINDOW_DIMENSTIONS);
+        if (addToList)
+        {
+            cont.setPreferredSize(DISPLAY_WINDOW_DIMENSTIONS_MULTI_SEARCH);
+        }
+        else
+        {
+            cont.setPreferredSize(DISPLAY_WINDOW_DIMENSTIONS);
+        }
 
         //area label
         cont.add(new JLabel(name), BorderLayout.NORTH);
@@ -284,7 +323,14 @@ public class MainGUI {
                 //calls on a thread so the user can still use the buttons while this is running
                 Thread thread = new Thread(() -> {
                     // Stuff you want to do.
-                    collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
+                    if (addToList == true)
+                    {
+                        collegeList.collegeListInput(collegeListTextAreaMultiSearch.getText() + '\n');
+                    }
+                    else
+                    {
+                        collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
+                    }
                     area.setText(methodHandler(methodCalled));
                     bottom.remove(bar);
                 });
@@ -369,7 +415,7 @@ public class MainGUI {
         JTextArea typingtext = new JTextArea(topTextbox);
         typingtext.setEnabled(false);
         east.add(typingtext, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(), BorderLayout.CENTER);
+        east.add(collegeListDisplayWindow(true), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 
         cont.add(east, BorderLayout.WEST);
@@ -395,13 +441,21 @@ public class MainGUI {
 
         //East is the info panels for each person
         JPanel west = new JPanel();
-        west.setLayout(new BoxLayout(west, BoxLayout.Y_AXIS));
-        west.add(searchAll);
+        west.setLayout(new GridLayout(4,1));
+        Dimension infoSize = new Dimension(80,80);
+
+        //west.add(searchAll);
         west.add(infoDisplayWindow("State", "getAllState", true));
         west.add(infoDisplayWindow("City", "getAllCity", true));
         west.add(infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", true));
         west.add(infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", true));
-        cont.add(west, BorderLayout.CENTER);
+
+        //make scrollable
+        JScrollPane scrollPane = new JScrollPane(west);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        //add to cont
+        cont.add(scrollPane, BorderLayout.CENTER);
 
         //North is Blank for now
         JPanel whiteSpace = new JPanel();
@@ -446,7 +500,7 @@ public class MainGUI {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        frame = new JFrame("College List Tool");
+        frame = new JFrame("College List Helper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.setSize(new Dimension(830,660));
@@ -460,18 +514,40 @@ public class MainGUI {
         //JPanel searchBar = mainGUI.searchPanel();
 
         //make Jtabbed pane
+        int iconWidth = 30;
+        int iconHeight = 30;
         JTabbedPane mainFrame = new JTabbedPane();
         mainFrame.addTab("College List", main);
-        mainFrame.addTab("Settings", settings);
-        mainFrame.addTab("Help", help);
+        mainFrame.setIconAt(0, mainGUI.getImage("main/src/main/images/small_list (1).png", iconWidth,iconHeight));
         mainFrame.addTab("MultiSearch", multiSearch);
+        mainFrame.setIconAt(1, mainGUI.getImage("main/src/main/images/biglist.png", iconWidth,iconHeight));
+        mainFrame.addTab("Settings", settings);
+        mainFrame.setIconAt(2, mainGUI.getImage("main/src/main/images/gear.png", iconWidth,iconHeight));
+        mainFrame.addTab("Help", help);
+        mainFrame.setIconAt(3, mainGUI.getImage("main/src/main/images/questionMark.png", iconWidth,iconHeight));
+
+
         //mainFrame.addTab("Search bar", searchBar);
         frame.setContentPane(mainFrame);
+
+        ImageIcon img = new ImageIcon("main/src/main/images/icon.png");
+        frame.setIconImage(img.getImage());
 
         //Display the window.
         //frame.pack();
         frame.setVisible(true);
     }
 
+
+    public ImageIcon getImage(String fileName, int width, int height)
+    {
+        String diceFaceFileName = fileName;
+        //image handling for play button
+        ImageIcon wIcon = new ImageIcon(diceFaceFileName);
+        Image image = wIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(width, height,  Image.SCALE_SMOOTH); // scale it the smooth way
+        wIcon = new ImageIcon(newimg);
+        return wIcon;
+    }
 
 }

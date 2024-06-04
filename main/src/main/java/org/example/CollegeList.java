@@ -10,6 +10,7 @@ public class CollegeList {
     public CollegeList()
     {
         colleges = new ArrayList<>();
+        System.out.println("list made");
     }
 
     public void clearList()
@@ -40,6 +41,8 @@ public class CollegeList {
             }
             x++;
         }
+
+        System.out.println(colleges);
     }
 
     public static void updateStateAutoAppend(String inp)
