@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class College {
 
@@ -77,11 +78,12 @@ public class College {
 
     private void proccessInputName()
     {
-        //case 4: is normal, and on list.
-        if (collegeNameExists(inputName))
-        {
-            name = inputName;
+        //some
 
+        //case 4: is normal, and on list.
+        if (collegeNameSearch(inputName))
+        {
+            return; // found it funny!
         }
         //Case 2: input is an alias EX: UW, GU, EWU
         else if((inputName.length() < 5) && readAliases) // looks like an Alias
@@ -95,11 +97,6 @@ public class College {
         {
             //is a state, will now tranform into state school name
             name = inputName + stateAutoAppend;
-        }
-        //case 5: didnt add university to the thing
-        else if (collegeNameExists(inputName + " University"))
-        {
-            name = inputName + " University";
         }
         else
         {
@@ -232,7 +229,7 @@ public class College {
 
     }
 
-    public boolean collegeNameExists(String collegeName)
+    public boolean collegeNameSearch(String collegeName)
     {
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getWorkSheet();
@@ -242,8 +239,17 @@ public class College {
             int rowIndex = 0;
 
             XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
-            if (cell.getStringCellValue().equalsIgnoreCase(collegeName))
+            //checks if exact name
+            String nameFromSheet = cell.getStringCellValue();
+            if (nameFromSheet.equalsIgnoreCase(collegeName))
             {
+                //name exact
+                name = collegeName;
+                return true;
+            }
+            else if (Pattern.compile(Pattern.quote(collegeName), Pattern.CASE_INSENSITIVE).matcher(nameFromSheet).find()) {
+                //the name is in the string
+                name = nameFromSheet;
                 return true;
             }
         }

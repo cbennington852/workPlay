@@ -37,6 +37,7 @@ public class Main {
         try {
             UIManager UIManager = new UIManager();
             UIManager.setLookAndFeel( new FlatIntelliJLaf());
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }

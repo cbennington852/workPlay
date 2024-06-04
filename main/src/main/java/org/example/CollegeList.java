@@ -77,6 +77,18 @@ public class CollegeList {
         return result;
     }
 
+    public String nameReconisedTest()
+    {
+        String result = "";
+        int size = colleges.size();
+
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getState()+"\n";
+        }
+        return result;
+    }
+
     public String getAllEnrollement(JProgressBar bar)
     {
         String result = "";
