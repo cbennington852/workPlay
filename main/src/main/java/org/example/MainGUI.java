@@ -1,11 +1,9 @@
 package org.example;
 
+
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.IntelliJTheme;
-import org.apache.poi.ss.formula.atp.Switch;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -15,11 +13,10 @@ import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainGUI {
@@ -313,7 +310,7 @@ public class MainGUI {
                 generatorButton.setEnabled(false);
                 copyButton.setEnabled(false);
                 frame.repaint();
-                System.out.println("HERE?");
+                //System.out.println("HERE?");
 
                 //make a proggress bar
                 bar.setValue(10);
@@ -518,19 +515,22 @@ public class MainGUI {
         int iconHeight = 25;
         JTabbedPane mainFrame = new JTabbedPane();
         mainFrame.addTab("College List", main);
-        mainFrame.setIconAt(0, mainGUI.getImage("main/src/main/images/small_list (1).png", iconWidth,iconHeight));
+        mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/small_list (1).png"), iconWidth,iconHeight));
         mainFrame.addTab("MultiSearch", multiSearch);
-        mainFrame.setIconAt(1, mainGUI.getImage("main/src/main/images/biglist.png", iconWidth,iconHeight));
+        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/biglist.png"), iconWidth,iconHeight));
         mainFrame.addTab("Settings", settings);
-        mainFrame.setIconAt(2, mainGUI.getImage("main/src/main/images/gear.png", iconWidth,iconHeight));
+        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
         mainFrame.addTab("Help", help);
-        mainFrame.setIconAt(3, mainGUI.getImage("main/src/main/images/output-onlinepngtools.png", iconWidth,iconHeight));
+        mainFrame.setIconAt(3, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
 
 
         //mainFrame.addTab("Search bar", searchBar);
         frame.setContentPane(mainFrame);
 
-        ImageIcon img = new ImageIcon("main/src/main/images/icon.png");
+        //ImageIcon img = new ImageIcon("main/src/main/java/org/example/icon.png");
+        ImageIcon img = new ImageIcon(MainGUI.class.getResource("/org/example/icon.png"));
+        System.out.println();
+
         frame.setIconImage(img.getImage());
 
         //Display the window.
@@ -539,9 +539,9 @@ public class MainGUI {
     }
 
 
-    public ImageIcon getImage(String fileName, int width, int height)
+    public ImageIcon getImage(URL fileName, int width, int height)
     {
-        String diceFaceFileName = fileName;
+        URL diceFaceFileName = fileName;
         //image handling for play button
         ImageIcon wIcon = new ImageIcon(diceFaceFileName);
         Image image = wIcon.getImage(); // transform it

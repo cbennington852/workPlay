@@ -2,28 +2,16 @@ package org.example;
 
 // Import statements
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import ExelUtils.ExelUtils;
-import ExelUtils.*;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -189,10 +177,10 @@ public class College {
             int responseCode = huc.getResponseCode();
 
             if (responseCode != 404) {
-                System.out.println("GOOD");
+                //System.out.println("GOOD");
                 ret = url.toString();
             } else {
-                System.out.println("BAD");
+                //System.out.println("BAD");
             }
             Thread.sleep(300);
         }
@@ -221,7 +209,7 @@ public class College {
             if(temp.equalsIgnoreCase(inputName))
             {
                 XSSFCell cell2 = workSheet.getRow(columnIndex).getCell(0);
-                System.out.println(cell2.getStringCellValue());
+                //System.out.println(cell2.getStringCellValue());
                 return cell2.getStringCellValue();
             }
         }
