@@ -44,8 +44,12 @@ public class MainGUI {
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
             "\n EX: UW, WSU" +
-            "\n State names automatically interpreted as universities. " +
-            "\n EX: Washington -> Washington State University";
+            "\n State names automatically interpreted as state universities. " +
+            "\n EX: Washington -> Washington State University" +
+            "\n University names automaticly appended" +
+            "\n EX: gonzaga -> Gonzaga Univeristy" +
+            "\n not case sensitive"+
+            "\n Spaces are ignored.";
 
 
     public JPanel settingsPanel ()
@@ -219,8 +223,48 @@ public class MainGUI {
         JPanel east = new JPanel(new BorderLayout());
 
         JTextArea typingtext = new JTextArea(topTextbox);
+
+        //JButton menu = new JButton("Show Instructions");
+        /*
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                typingtext.setVisible(!typingtext.isVisible());
+            }
+        });
+         */
         typingtext.setEnabled(false);
-        east.add(typingtext, BorderLayout.NORTH);
+        JPanel eastNorth = new JPanel(new BorderLayout());
+        eastNorth.setBorder(new TitledBorder("Show Instructions"));
+        eastNorth.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                typingtext.setVisible(!typingtext.isVisible());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        eastNorth.add(typingtext, BorderLayout.CENTER);
+
+        east.add(eastNorth, BorderLayout.NORTH);
         east.add(collegeListDisplayWindow(false), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 

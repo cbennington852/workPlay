@@ -23,6 +23,7 @@ public class DataGrabber {
         String sheetName1 = "Sheet1";
         ExelUtils utils1 = new ExelUtils(exelPath1,sheetName1);
         govSheet = utils1.getSheet();
+        System.out.println(govSheet.getPhysicalNumberOfRows());
     }
 
     public static DataGrabber getDataGrabber()

@@ -126,7 +126,7 @@ public class College {
         {
             return "College not Found";
         }
-        return val;
+        return "=HYPERLINK(\"" + val + "\", \"" + "Net Price Calc" + "\")";
     }
 
 
@@ -235,6 +235,12 @@ public class College {
                 name = collegeName;
                 return true;
             }
+            else if (nameFromSheet.equalsIgnoreCase(collegeName + " University"))
+            {
+                //name is same + Univerity
+                name = collegeName + " University";
+                return true;
+            }
             else if (Pattern.compile(Pattern.quote(collegeName), Pattern.CASE_INSENSITIVE).matcher(nameFromSheet).find()) {
                 //the name is in the string
                 name = nameFromSheet;
@@ -297,11 +303,11 @@ public class College {
 
     public String getVirtualTourLink ()
     {
-
-        File file = new File("main/src/main/data/virtualTourLinks.txt");
+        URL url = MainGUI.class.getResource("/org/example/virtualTourLinks.txt");
+        System.out.println(url.getFile());
 
         try {
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(url.openStream());
 
             //now read the file line by line...
             int lineNum = 0;
@@ -330,6 +336,9 @@ public class College {
             }
         } catch(FileNotFoundException e) {
             //handle this
+            System.out.println("could not open virtual tour links file");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return "virtual tour";
     }

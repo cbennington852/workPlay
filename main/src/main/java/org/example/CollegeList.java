@@ -27,6 +27,10 @@ public class CollegeList {
     {
         colleges.clear();
         int x = 0;
+
+        //remove spaces from the input
+        inp = inp.replaceAll(" ", "");
+
         String collegeName = "";
         while (x < inp.length())
         {
