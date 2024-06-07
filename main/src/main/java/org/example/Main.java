@@ -24,6 +24,8 @@ public class Main {
             UG enrollment actual.
 
 
+            SAT/ACT test optianl scores 
+
             Url scraper notes:
             use https://stackoverflow.com/questions/18134718/java-quickest-way-to-check-if-url-exists
             To check and see if link exists. Should be very easy. maybe only check it for one link
