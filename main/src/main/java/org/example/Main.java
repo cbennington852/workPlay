@@ -24,7 +24,14 @@ public class Main {
             UG enrollment actual.
 
 
-            SAT/ACT test optianl scores 
+            SAT/ACT test optianl scores
+            https://fairtest.org/test-optional-list/
+
+            or
+
+            https://www.ivywise.com/blog/colleges-going-test-optional/
+            https://docs.google.com/spreadsheets/u/0/d/e/2PACX-1vTFLFL8qntn-YuMOV4g0ul7SG07LyH33gUUFnFJuM-0obWmJcteVimY3k5dYqaz9fEsguC7kaf_6E5U/pubhtml/sheet?headers=false&gid=0
+            Updated March 2024.
 
             Url scraper notes:
             use https://stackoverflow.com/questions/18134718/java-quickest-way-to-check-if-url-exists

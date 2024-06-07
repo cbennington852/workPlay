@@ -47,6 +47,8 @@ public class DataLocater {
                     }
                 }
             }
+            //System.out.println("data" + workSheet.getRow(columnIndex).getCell(horizantalPosition));
+            //System.out.println("name" + val);
             //check to find name equality
             if (collegeName.equalsIgnoreCase(val))
             {

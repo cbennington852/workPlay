@@ -28,9 +28,6 @@ public class CollegeList {
         colleges.clear();
         int x = 0;
 
-        //remove spaces from the input
-        inp = inp.replaceAll(" ", "");
-
         String collegeName = "";
         while (x < inp.length())
         {
@@ -73,6 +70,22 @@ public class CollegeList {
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getState()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
+        }
+        bar.setValue(100);
+        return result;
+    }
+
+    public String getAllSATPolicy(JProgressBar bar)
+    {
+        String result = "";
+        int size = colleges.size();
+
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).isTestOptinal()+"\n";
             double proggress  = ((double) x /size) * 100;
             int val = (int) proggress;
             bar.setValue(val);

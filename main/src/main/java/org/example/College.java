@@ -66,7 +66,18 @@ public class College {
 
     private void proccessInputName()
     {
+
+        //remove spaces from the input (only the ending part!!!)
+        if (inputName.charAt(inputName.length()-1) == ' ')
+        {
+            inputName = inputName.stripTrailing();
+        }
         //some
+        if (inputName.isEmpty())
+        {
+            name = "poop";
+            return;
+        }
 
         //case 4: is normal, and on list.
         if (collegeNameSearch(inputName))
@@ -223,15 +234,19 @@ public class College {
         XSSFSheet workSheet = grabby.getWorkSheet();
         //itternates thru each cell
         //System.out.println(getColumnSize(workSheet, 0));
+        //System.out.println(inputName);
         for (int columnIndex = 1; columnIndex<getColumnSize(workSheet, 0); columnIndex++){
             int rowIndex = 0;
 
             XSSFCell cell = workSheet.getRow(columnIndex).getCell(rowIndex);
             //checks if exact name
             String nameFromSheet = cell.getStringCellValue();
+
+            //System.out.println(nameFromSheet);
             if (nameFromSheet.equalsIgnoreCase(collegeName))
             {
                 //name exact
+
                 name = collegeName;
                 return true;
             }
@@ -248,6 +263,22 @@ public class College {
             }
         }
         return false;
+    }
+
+    public String isTestOptinal()
+    {
+        System.out.println(name);
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getLegallyAquuiredSATData();
+        DataLocater loc = new DataLocater(workSheet);
+        String horizantalName = "TST";
+        String val =  loc.getCell(horizantalName,name).getStringCellValue();
+        System.out.println(name);
+        if (Objects.equals(val, "INSTNM"))
+        {
+            return "Data not found";
+        }
+        return val;
     }
 
     private void locateBasicData ()

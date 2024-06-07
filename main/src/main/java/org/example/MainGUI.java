@@ -279,6 +279,7 @@ public class MainGUI {
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
         generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false));
         //generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
+        generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -412,6 +413,8 @@ public class MainGUI {
                 return collegeList.getAllNetPriceCalcLink(bar);
             case "getAllEnrollement":
                 return collegeList.getAllEnrollement(bar);
+            case "getAllSATPolicy":
+                return collegeList.getAllSATPolicy(bar);
             default:
                 return  "";
         }
@@ -482,7 +485,7 @@ public class MainGUI {
 
         //East is the info panels for each person
         JPanel west = new JPanel();
-        west.setLayout(new GridLayout(4,1));
+        west.setLayout(new GridLayout(5,1));
         Dimension infoSize = new Dimension(80,80);
 
         //west.add(searchAll);
@@ -490,7 +493,7 @@ public class MainGUI {
         west.add(infoDisplayWindow("City", "getAllCity", true));
         west.add(infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", true));
         west.add(infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", true));
-
+        west.add(infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",true));
         //make scrollable
         JScrollPane scrollPane = new JScrollPane(west);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);

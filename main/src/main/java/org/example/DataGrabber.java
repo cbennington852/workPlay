@@ -9,6 +9,7 @@ public class DataGrabber {
 
     private final XSSFSheet govSheet;
 
+    private final XSSFSheet legallyAquuiredSATData;
 
     //FOR THE UNIVERSITY SHEET FUNNY
 
@@ -24,6 +25,11 @@ public class DataGrabber {
         ExelUtils utils1 = new ExelUtils(exelPath1,sheetName1);
         govSheet = utils1.getSheet();
         System.out.println(govSheet.getPhysicalNumberOfRows());
+
+        String exelPath2  = "Test Optinal Exel2.xlsx";
+        String sheetName2 = "Sheet 1";
+        ExelUtils utils2 = new ExelUtils(exelPath2,sheetName2);
+        legallyAquuiredSATData = utils2.getSheet();
     }
 
     public static DataGrabber getDataGrabber()
@@ -45,4 +51,6 @@ public class DataGrabber {
     {
         return govSheet;
     }
+
+    public XSSFSheet getLegallyAquuiredSATData() {return legallyAquuiredSATData;}
 }
