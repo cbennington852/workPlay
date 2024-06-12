@@ -175,7 +175,7 @@ public class MainGUI {
 
         bugReport.add(text);
 
-        cont.add(help, BorderLayout.NORTH);
+        //cont.add(help, BorderLayout.NORTH);
         cont.add(bugReport, BorderLayout.CENTER);
         return cont;
     }
@@ -279,7 +279,7 @@ public class MainGUI {
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
         generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false));
         //generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
-        generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false));
+        //generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -495,7 +495,7 @@ public class MainGUI {
         //make scrollable
         JScrollPane scrollPane = new JScrollPane(west);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        west.setLayout(new GridLayout(6,1));
+        west.setLayout(new GridLayout(5,1));
 
         //add to cont
         cont.add(scrollPane, BorderLayout.CENTER);
@@ -562,12 +562,12 @@ public class MainGUI {
         JTabbedPane mainFrame = new JTabbedPane();
         mainFrame.addTab("College List", main);
         mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/small_list (1).png"), iconWidth,iconHeight));
-        mainFrame.addTab("MultiSearch", multiSearch);
-        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/biglist.png"), iconWidth,iconHeight));
+        //mainFrame.addTab("MultiSearch", multiSearch);
+        //mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/biglist.png"), iconWidth,iconHeight));
         mainFrame.addTab("Settings", settings);
-        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
         mainFrame.addTab("Help", help);
-        mainFrame.setIconAt(3, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
 
 
         //mainFrame.addTab("Search bar", searchBar);
