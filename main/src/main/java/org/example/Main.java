@@ -19,6 +19,12 @@ public class Main {
             Gonzaga University
             WSU
 
+            USE THIS FOR DATA????
+            https://www.prepscholar.com/sat/s/colleges/University-of-Washington-admission-requirements
+            Legal? possibly
+            might get blocked by them tho.
+            Perchance???
+
             Notes:
             CIPTFBS1 tuition 2023
             UG enrollment actual.

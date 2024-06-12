@@ -347,6 +347,7 @@ public class MainGUI {
         JPanel bottom = new JPanel(new BorderLayout());
         //buttons to change text area.
         JButton generatorButton = new JButton("Find " + name);
+        generatorButton.setPreferredSize(new Dimension(100,40));
         generatorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -471,21 +472,18 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                /*
                 for (int x = 0; x < generateButtonList.size(); x++)
                 {
-                    generateButtonList.get(x).doClick();
-                }
-                 */
 
-                generateButtonList.get(1).doClick();
-                generateButtonList.get(0).doClick();
+                    generateButtonList.get(x).doClick();
+
+                }
             }
         });
 
         //East is the info panels for each person
         JPanel west = new JPanel();
-        west.setLayout(new GridLayout(5,1));
+        west.setLayout(new GridLayout(2,1));
         Dimension infoSize = new Dimension(80,80);
 
         //west.add(searchAll);
@@ -497,6 +495,7 @@ public class MainGUI {
         //make scrollable
         JScrollPane scrollPane = new JScrollPane(west);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        west.setLayout(new GridLayout(6,1));
 
         //add to cont
         cont.add(scrollPane, BorderLayout.CENTER);

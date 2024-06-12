@@ -66,17 +66,16 @@ public class College {
 
     private void proccessInputName()
     {
-
-        //remove spaces from the input (only the ending part!!!)
-        if (inputName.charAt(inputName.length()-1) == ' ')
-        {
-            inputName = inputName.stripTrailing();
-        }
         //some
         if (inputName.isEmpty())
         {
             name = "poop";
             return;
+        }
+        //remove spaces from the input (only the ending part!!!)
+        if (inputName.charAt(inputName.length()-1) == ' ')
+        {
+            inputName = inputName.stripTrailing();
         }
 
         //case 4: is normal, and on list.
@@ -135,7 +134,7 @@ public class College {
         String val =  loc.getCell(horizantalName,name).getStringCellValue();
         if (Objects.equals(val, "INSTNM"))
         {
-            return "College not Found";
+            return "Net Price Calc";
         }
         return "=HYPERLINK(\"" + val + "\", \"" + "Net Price Calc" + "\")";
     }
@@ -267,13 +266,13 @@ public class College {
 
     public String isTestOptinal()
     {
-        System.out.println(name);
+        //System.out.println(name);
         DataGrabber grabby =  DataGrabber.getDataGrabber();
         XSSFSheet workSheet = grabby.getLegallyAquuiredSATData();
         DataLocater loc = new DataLocater(workSheet);
         String horizantalName = "TST";
         String val =  loc.getCell(horizantalName,name).getStringCellValue();
-        System.out.println(name);
+        //System.out.println(name);
         if (Objects.equals(val, "INSTNM"))
         {
             return "Data not found";

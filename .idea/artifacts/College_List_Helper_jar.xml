@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="main:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/main_jar</output-path>
+  <artifact type="jar" name="College List Helper:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/College_List_Helper_jar</output-path>
     <root id="archive" name="main.jar">
       <element id="module-output" name="main" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar" path-in-jar="/" />
