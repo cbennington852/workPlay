@@ -40,6 +40,9 @@ public class MainGUI {
     public static final Dimension COLLEGE_LIST_WINDOW = new Dimension(400,80);
 
     public ArrayList<JButton> generateButtonList = new ArrayList<>();
+    public int fontSize;
+    public Font standardFont = new Font("Arial", Font.PLAIN, fontSize);
+
 
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
@@ -58,7 +61,7 @@ public class MainGUI {
         cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
 
         //Dark mode / light mode Stuff.
-        JPanel apperance = new JPanel();
+        JPanel apperance = new JPanel(new GridLayout(2,1));
         apperance.setBorder(new TitledBorder("Appearance"));
         JCheckBox darkMode = new JCheckBox();
         darkMode.setBorder(new TitledBorder("Appearance"));
@@ -89,6 +92,14 @@ public class MainGUI {
         });
         darkMode.setText("Dark Mode Enabled");
         apperance.add(darkMode);
+        //JPanel justSldier = new JPanel()
+        JSlider fontSizeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70);
+
+        fontSizeSlider.setMinorTickSpacing(5);
+        fontSizeSlider.setMajorTickSpacing(20);
+        fontSizeSlider.setPaintTicks(true);
+        fontSizeSlider.setPaintLabels(true);
+        apperance.add(fontSizeSlider);
 
         //College List settings
         int mumCollegeListSettings = 2;

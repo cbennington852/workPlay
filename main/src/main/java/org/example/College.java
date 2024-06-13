@@ -73,10 +73,13 @@ public class College {
             return;
         }
         //remove spaces from the input (only the ending part!!!)
+        /*
         if (inputName.charAt(inputName.length()-1) == ' ')
         {
             inputName = inputName.stripTrailing();
         }
+
+         */
 
         //case 4: is normal, and on list.
         if (collegeNameSearch(inputName))
