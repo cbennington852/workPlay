@@ -7,6 +7,8 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
@@ -43,7 +45,7 @@ public class MainGUI {
     public int fontSize;
     public Font standardFont = new Font("Arial", Font.PLAIN, fontSize);
 
-
+    ArrayList<JComponent> fontChangableComps = new ArrayList<>();
     public final String topTextbox = "Please enter college names " +
             "\n names can be aliases,  " +
             "\n EX: UW, WSU" +
@@ -63,6 +65,7 @@ public class MainGUI {
         //Dark mode / light mode Stuff.
         JPanel apperance = new JPanel(new GridLayout(2,1));
         apperance.setBorder(new TitledBorder("Appearance"));
+        fontChangableComps.add(apperance);
         JCheckBox darkMode = new JCheckBox();
         darkMode.setBorder(new TitledBorder("Appearance"));
         darkMode.addActionListener(new ActionListener() {
@@ -91,15 +94,33 @@ public class MainGUI {
             }
         });
         darkMode.setText("Dark Mode Enabled");
+        fontChangableComps.add(darkMode);
         apperance.add(darkMode);
-        //JPanel justSldier = new JPanel()
-        JSlider fontSizeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 70);
-
-        fontSizeSlider.setMinorTickSpacing(5);
-        fontSizeSlider.setMajorTickSpacing(20);
+        JPanel justSldier = new JPanel();
+        justSldier.setBorder(new TitledBorder("Text Size"));
+        fontChangableComps.add(justSldier);
+        JSlider fontSizeSlider = new JSlider(JSlider.HORIZONTAL, 10, 20, 12);
+        fontSizeSlider.setMinorTickSpacing(2);
+        fontSizeSlider.setMajorTickSpacing(5);
         fontSizeSlider.setPaintTicks(true);
         fontSizeSlider.setPaintLabels(true);
-        apperance.add(fontSizeSlider);
+        fontSizeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                fontSize = fontSizeSlider.getValue();
+                standardFont = new Font("Arial", Font.PLAIN, fontSize);
+                for (int x =0; x < fontChangableComps.size(); x++)
+                {
+                    fontChangableComps.get(x).setFont(standardFont);
+                }
+                frame.pack();
+                System.out.println(fontSize);
+            }
+        });
+        justSldier.add(fontSizeSlider);
+        JLabel temp = new JLabel("Text Size");
+        justSldier.setSize(new Dimension(300,20));
+        //apperance.add(justSldier);
 
         //College List settings
         int mumCollegeListSettings = 2;
@@ -161,13 +182,13 @@ public class MainGUI {
         help.setLayout(new BoxLayout(help, BoxLayout.Y_AXIS));
         JTextArea j1 = new JTextArea("Confused on how to use this application? " +
                 "\n There is a helpful tutorial linked below");
+        fontChangableComps.add(j1);
         help.add(j1);
-        j1.setFont(font1);
         j1.setEditable(false);
 
         //make links to youtube tut
         JLabel hyperlink = new JLabel("Tutorial Link");
-        hyperlink.setFont(font1);
+        fontChangableComps.add(hyperlink);
         hyperlink.setForeground(Color.BLUE.darker());
         hyperlink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         addMouse(hyperlink);
@@ -181,8 +202,9 @@ public class MainGUI {
         JTextArea text = new JTextArea("Found a Bug? \n Report the bug here, by emailing me \n c.bennington852@gmail.com \n\n\n" +
                 "This project is made and maintained by Charles Bennington, a current student at Gonzaga" +
                 "\n and part of the graduating class of 2026. ");
+
         text.setEditable(false);
-        text.setFont(font1);
+        fontChangableComps.add(text);
 
         bugReport.add(text);
 
@@ -234,7 +256,7 @@ public class MainGUI {
         JPanel east = new JPanel(new BorderLayout());
 
         JTextArea typingtext = new JTextArea(topTextbox);
-
+        fontChangableComps.add(typingtext);
         //JButton menu = new JButton("Show Instructions");
         /*
         menu.addActionListener(new ActionListener() {
@@ -285,6 +307,7 @@ public class MainGUI {
         //East is the info panels for each person
         JPanel west = new JPanel();
         JTabbedPane generatorInfoPanels = new JTabbedPane();
+        fontChangableComps.add(generatorInfoPanels);
         generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState", false));
         generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false));
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
@@ -306,17 +329,20 @@ public class MainGUI {
     public JPanel collegeListDisplayWindow(boolean multiSearch)
     {
         JPanel cont = new JPanel(new BorderLayout());
-
-        cont.add(new JLabel("College List"), BorderLayout.NORTH);
+        JLabel funnn = new JLabel("College List");
+        fontChangableComps.add(funnn);
+        cont.add(funnn, BorderLayout.NORTH);
         if (multiSearch)
         {
             collegeListTextAreaMultiSearch = new JTextArea();
+            fontChangableComps.add(collegeListTextAreaMultiSearch);
             collegeListTextAreaMultiSearch.setBorder(new JTextField().getBorder());
             cont.add(collegeListTextAreaMultiSearch, BorderLayout.CENTER);
         }
         else
         {
             collegeListTextArea = new JTextArea();
+            fontChangableComps.add(collegeListTextArea);
             collegeListTextArea.setBorder(new JTextField().getBorder());
             cont.add(collegeListTextArea, BorderLayout.CENTER);
         }
@@ -337,16 +363,20 @@ public class MainGUI {
         }
 
         //area label
-        cont.add(new JLabel(name), BorderLayout.NORTH);
+        JLabel nameee = new JLabel(name);
+        cont.add(nameee, BorderLayout.NORTH);
+        fontChangableComps.add(nameee);
 
         //editable text area
         JTextArea area = new JTextArea();
+        fontChangableComps.add(area);
         area.setBorder(new JTextField().getBorder());
         area.setPreferredSize(new Dimension(80,400));
         cont.add(area, BorderLayout.CENTER);
 
         //button to copy to clipboard
         JButton copyButton = new JButton("Copy");
+        fontChangableComps.add(copyButton);
         copyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -358,6 +388,7 @@ public class MainGUI {
         JPanel bottom = new JPanel(new BorderLayout());
         //buttons to change text area.
         JButton generatorButton = new JButton("Find " + name);
+        fontChangableComps.add(generatorButton);
         generatorButton.setPreferredSize(new Dimension(100,40));
         generatorButton.addActionListener(new ActionListener() {
             @Override
@@ -390,6 +421,7 @@ public class MainGUI {
                 });
                 thread.start();
 
+                fontChangableComps.add(copyButton);
                 //re-enable who screen.
                 area.setEnabled(true);
                 generatorButton.setEnabled(true);
