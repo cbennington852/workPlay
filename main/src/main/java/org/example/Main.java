@@ -35,6 +35,8 @@ public class Main {
 
             or
 
+            For student population add some sort of toggle between grad and undergrad
+
             https://www.ivywise.com/blog/colleges-going-test-optional/
             https://docs.google.com/spreadsheets/u/0/d/e/2PACX-1vTFLFL8qntn-YuMOV4g0ul7SG07LyH33gUUFnFJuM-0obWmJcteVimY3k5dYqaz9fEsguC7kaf_6E5U/pubhtml/sheet?headers=false&gid=0
             Updated March 2024.

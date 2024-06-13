@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFHyperlink;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.net.HttpURLConnection;
@@ -334,7 +335,7 @@ public class College {
         return city;
     }
 
-    public String getVirtualTourLink ()
+    public String getVirtualTourLinkFromWebScrappedData()
     {
         URL url = MainGUI.class.getResource("/org/example/virtualTourLinks.txt");
         System.out.println(url.getFile());
@@ -374,6 +375,23 @@ public class College {
             throw new RuntimeException(e);
         }
         return "virtual tour";
+    }
+
+    public String getVirtualTourLink ()
+    {
+        //search real frequency list
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getRealSheet();
+        DataLocater loc = new DataLocater(workSheet);
+        String horizantalName = "Virtual Tour Link";
+        XSSFHyperlink link =  loc.getCell(horizantalName,name,inputName).getHyperlink();
+        if (Objects.isNull(link)) //didn't find anything
+        {
+            //did not find anything :(
+            return getVirtualTourLinkFromWebScrappedData();
+        }
+        return "=HYPERLINK(\"" + link.getAddress() + "\", \"" + "virtual tour" + "\")";
+
     }
 
 

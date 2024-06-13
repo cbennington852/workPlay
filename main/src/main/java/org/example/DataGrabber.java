@@ -9,6 +9,8 @@ public class DataGrabber {
 
     private final XSSFSheet govSheet;
 
+    private final XSSFSheet realSheet;
+
     private final XSSFSheet legallyAquuiredSATData;
 
     //FOR THE UNIVERSITY SHEET FUNNY
@@ -24,12 +26,16 @@ public class DataGrabber {
         String sheetName1 = "Sheet1";
         ExelUtils utils1 = new ExelUtils(exelPath1,sheetName1);
         govSheet = utils1.getSheet();
-        System.out.println(govSheet.getPhysicalNumberOfRows());
 
         String exelPath2  = "Test Optinal Exel2.xlsx";
         String sheetName2 = "Sheet 1";
         ExelUtils utils2 = new ExelUtils(exelPath2,sheetName2);
         legallyAquuiredSATData = utils2.getSheet();
+
+        String exelPath3 = "Aggrigrated college sheet only 2024.xlsx";
+        String sheetName3 = "Sheet1";
+        ExelUtils utils3 = new ExelUtils(exelPath3,sheetName3);
+        realSheet = utils3.getSheet();
     }
 
     public static DataGrabber getDataGrabber()
@@ -53,4 +59,8 @@ public class DataGrabber {
     }
 
     public XSSFSheet getLegallyAquuiredSATData() {return legallyAquuiredSATData;}
+
+    public XSSFSheet getRealSheet() {
+        return realSheet;
+    }
 }
