@@ -29,6 +29,8 @@ public class MainGUI {
 
     JTextArea collegeListTextArea;
 
+    String collegeListInput;
+
     JTextArea collegeListTextAreaMultiSearch;
 
     JProgressBar bar = new JProgressBar(JProgressBar.HORIZONTAL,0,100);
@@ -207,6 +209,7 @@ public class MainGUI {
         fontChangableComps.add(text);
 
         JPanel sources = new JPanel();
+        JTextArea sourcesText = new JTextArea("");
 
         bugReport.add(text);
 
@@ -375,7 +378,7 @@ public class MainGUI {
         eastNorth.add(typingtext, BorderLayout.CENTER);
 
         east.add(eastNorth, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(false), BorderLayout.CENTER);
+        east.add(collegeListDisplayWindow(false, collegeListTextArea), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 
         cont.add(east,BorderLayout.WEST);
@@ -402,26 +405,17 @@ public class MainGUI {
         return cont;
     }
 
-    public JPanel collegeListDisplayWindow(boolean multiSearch)
+    public JPanel collegeListDisplayWindow(boolean multiSearch, JTextArea theCollegeListTextArea)
     {
         JPanel cont = new JPanel(new BorderLayout());
         JLabel funnn = new JLabel("College List");
         fontChangableComps.add(funnn);
         cont.add(funnn, BorderLayout.NORTH);
-        if (multiSearch)
-        {
-            collegeListTextAreaMultiSearch = new JTextArea();
-            fontChangableComps.add(collegeListTextAreaMultiSearch);
-            collegeListTextAreaMultiSearch.setBorder(new JTextField().getBorder());
-            cont.add(collegeListTextAreaMultiSearch, BorderLayout.CENTER);
-        }
-        else
-        {
-            collegeListTextArea = new JTextArea();
-            fontChangableComps.add(collegeListTextArea);
-            collegeListTextArea.setBorder(new JTextField().getBorder());
-            cont.add(collegeListTextArea, BorderLayout.CENTER);
-        }
+
+        theCollegeListTextArea = new JTextArea();
+        fontChangableComps.add(theCollegeListTextArea);
+        theCollegeListTextArea.setBorder(new JTextField().getBorder());
+        cont.add(theCollegeListTextArea, BorderLayout.CENTER);
 
         return cont;
     }
@@ -483,14 +477,15 @@ public class MainGUI {
                 //call backend stuff
                 //calls on a thread so the user can still use the buttons while this is running
                 Thread thread = new Thread(() -> {
+                    collegeListInput = collegeListTextArea.getText();
                     // Stuff you want to do.
                     if (addToList == true)
                     {
-                        collegeList.collegeListInput(collegeListTextAreaMultiSearch.getText() + '\n');
+                        collegeList.collegeListInput(collegeListInput + '\n');
                     }
                     else
                     {
-                        collegeList.collegeListInput(collegeListTextArea.getText() + '\n');
+                        collegeList.collegeListInput(collegeListInput+ '\n');
                     }
                     area.setText(methodHandler(methodCalled));
                     bottom.remove(bar);
@@ -556,67 +551,6 @@ public class MainGUI {
             }
         });
     }
-
-
-    public JPanel multiSearchPanel()
-    {
-       JPanel cont = new JPanel(new BorderLayout());
-        //West is the main college list
-        JPanel east = new JPanel(new BorderLayout());
-
-        JTextArea typingtext = new JTextArea(topTextbox);
-        typingtext.setEnabled(false);
-        east.add(typingtext, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(true), BorderLayout.CENTER);
-        east.setPreferredSize(COLLEGE_LIST_WINDOW);
-
-        cont.add(east, BorderLayout.WEST);
-        collegeList = new CollegeList();
-
-        JButton searchAll = new JButton("Search All");
-        searchAll.setSize(new Dimension(200,50));
-        searchAll.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                for (int x = 0; x < generateButtonList.size(); x++)
-                {
-
-                    generateButtonList.get(x).doClick();
-
-                }
-            }
-        });
-
-        //East is the info panels for each person
-        JPanel west = new JPanel();
-        west.setLayout(new GridLayout(2,1));
-        Dimension infoSize = new Dimension(80,80);
-
-        //west.add(searchAll);
-        west.add(infoDisplayWindow("State", "getAllState", true));
-        west.add(infoDisplayWindow("City", "getAllCity", true));
-        west.add(infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", true));
-        west.add(infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", true));
-        west.add(infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",true));
-        //make scrollable
-        JScrollPane scrollPane = new JScrollPane(west);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        west.setLayout(new GridLayout(5,1));
-
-        //add to cont
-        cont.add(scrollPane, BorderLayout.CENTER);
-
-        //North is Blank for now
-        JPanel whiteSpace = new JPanel();
-        Dimension whiteSpaceD = new Dimension(600, 30);
-        whiteSpace.setPreferredSize(whiteSpaceD);
-        cont.add(whiteSpace, BorderLayout.NORTH);
-
-        return cont;
-    }
-
-
 
 
 
