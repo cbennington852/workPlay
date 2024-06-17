@@ -1,7 +1,9 @@
 package org.example;
 
 import javax.swing.*;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+
 
 public class CollegeList {
 
@@ -59,6 +61,55 @@ public class CollegeList {
     public static void appendUniversityToMatches(boolean inp)
     {
         College.appendUniversityToMatches = inp;
+    }
+
+
+    public String getAllAcceptanceRates(JProgressBar bar)
+    {
+        String result = "";
+        int size = colleges.size();
+
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getAcceptanceRate()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
+        }
+        bar.setValue(100);
+        return result;
+    }
+
+    public String getAllUniversityRequirmentsLink(JProgressBar bar)
+    {
+        String result = "";
+        int size = colleges.size();
+
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getUniversityRequirmentsLink()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
+        }
+        bar.setValue(100);
+        return result;
+    }
+
+    public String getAllSATDeviationRange(JProgressBar bar)
+    {
+        String result = "";
+        int size = colleges.size();
+
+        for (int x = 0; x < colleges.size(); x++)
+        {
+            result += colleges.get(x).getSATDeviationRange()+"\n";
+            double proggress  = ((double) x /size) * 100;
+            int val = (int) proggress;
+            bar.setValue(val);
+        }
+        bar.setValue(100);
+        return result;
     }
 
 

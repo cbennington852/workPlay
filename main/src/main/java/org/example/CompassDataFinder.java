@@ -35,7 +35,7 @@ public class CompassDataFinder {
     //START OF THE BACKEND GUTS
     ///////////////////////////////////////////////////////////////////
 
-    public static String getAttibuteWithCode(String inputName,String name, int numCommas, int offSet, char endChar)
+    private static String getAttibuteWithCode(String inputName,String name, int numCommas, int offSet, char endChar)
     {
         try {
             Scanner scanner = new Scanner(url.openStream());
@@ -64,7 +64,7 @@ public class CompassDataFinder {
         return "College data Not Found";
     }
 
-    public static String getAttribute(String input, int numCommas, int offSet)
+    private static String getAttribute(String input, int numCommas, int offSet)
     {
         String newLine = moveIntNumCommas(input,numCommas);
         int startOffSet = offSet;
@@ -79,7 +79,7 @@ public class CompassDataFinder {
         return "> symbol not found";
     }
 
-    public static String getAttribute(String input, int numCommas, int offSet, char endChar)
+    private static String getAttribute(String input, int numCommas, int offSet, char endChar)
     {
         String newLine = moveIntNumCommas(input,numCommas);
         int startOffSet = offSet;
@@ -100,7 +100,7 @@ public class CompassDataFinder {
      * @param numCommas
      * @return
      */
-    public static String moveIntNumCommas(String input, int numCommas)
+    private static String moveIntNumCommas(String input, int numCommas)
     {
         //find the name
         int dashCount = 0;
@@ -124,7 +124,7 @@ public class CompassDataFinder {
      * @param currentLine current line being searched
      * @return true or false
      */
-    public static boolean nameEquals(String inputName, String name, String currentLine)
+    private static boolean nameEquals(String inputName, String name, String currentLine)
     {
         String currentLineCollegeName = "";
         if (currentLine.isEmpty()) //empty return false
@@ -167,24 +167,4 @@ public class CompassDataFinder {
         return false;
     }
 
-
-    /*
-                 //found line
-                if(line.equalsIgnoreCase("<td>"+name+"</td>")) {
-                    String result  = scanner.nextLine();
-
-                    //chop off font gibberish
-                    result = result.substring(13);
-
-
-                    //remove the back (0_0)
-                    int x = 0;
-                    while (result.charAt(x) != '\"')
-                    {
-                        x++;
-                    }
-                    result = result.substring(0,x);
-                    result = "=HYPERLINK(\"" + result + "\", \"" + "virtual tour" + "\")";
-                    return result;
-                 */
 }

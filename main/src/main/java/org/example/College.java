@@ -268,6 +268,27 @@ public class College {
         return false;
     }
 
+    public String getAcceptanceRate()
+    {
+        return CompassDataFinder.getAcceptanceRate(inputName,name);
+    }
+
+    public String getUniversityRequirmentsLink()
+    {
+
+        String linky = CompassDataFinder.getUniversityRequirments(inputName,name);
+        if (linky.equalsIgnoreCase("College data Not Found"))
+        {
+            return "Requirements";
+        }
+        return "=HYPERLINK(\"" + linky + "\", \"" + "Requirements" + "\")";
+    }
+
+    public String getSATDeviationRange()
+    {
+        return CompassDataFinder.getSatStandardDeviationRange(inputName,name);
+    }
+
     public String getTestingPolicy()
     {
         //System.out.println(name);

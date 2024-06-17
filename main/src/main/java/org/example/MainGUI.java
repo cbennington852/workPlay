@@ -206,6 +206,8 @@ public class MainGUI {
         text.setEditable(false);
         fontChangableComps.add(text);
 
+        JPanel sources = new JPanel();
+
         bugReport.add(text);
 
         //cont.add(help, BorderLayout.NORTH);
@@ -312,8 +314,82 @@ public class MainGUI {
         generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false));
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
         generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false));
-        //generatorInfoPanels.addTab("Enrollment", infoDisplayWindow("Enrollment", "getAllEnrollement"));
+        generatorInfoPanels.addTab("Requirements", infoDisplayWindow("College Admission Requirments", "getAllUniversityRequirmentsLink", false));
+        west.add(generatorInfoPanels);
+        cont.add(west,BorderLayout.CENTER);
+
+        //North is Blank for now
+        JPanel whiteSpace = new JPanel();
+        Dimension whiteSpaceD = new Dimension(600,30);
+        whiteSpace.setPreferredSize(whiteSpaceD);
+        cont.add(whiteSpace, BorderLayout.NORTH);
+
+        return cont;
+    }
+
+    public JPanel mainPanelSAT()
+    {
+        JPanel cont = new JPanel(new BorderLayout());
+        //West is the main college list
+        JPanel east = new JPanel(new BorderLayout());
+
+        String funny =
+                        "The same Naming Convetions apply to this section                             \n" +
+                        "SAT Deviation range:                                                         \n" +
+                        "       *Shows the SAT total 25th Percentile, and the 75th perentile range.   \n" +
+                        "This data is from                                                            \n" +
+                        "https://www.compassprep.com/college-profiles/                                \n" +
+                        "And is from May 2024. ";
+
+        JTextArea typingtext = new JTextArea(funny);
+        fontChangableComps.add(typingtext);
+        typingtext.setEnabled(false);
+        JPanel eastNorth = new JPanel(new BorderLayout());
+        eastNorth.setBorder(new TitledBorder("Show Instructions"));
+        eastNorth.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                typingtext.setVisible(!typingtext.isVisible());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        eastNorth.add(typingtext, BorderLayout.CENTER);
+
+        east.add(eastNorth, BorderLayout.NORTH);
+        east.add(collegeListDisplayWindow(false), BorderLayout.CENTER);
+        east.setPreferredSize(COLLEGE_LIST_WINDOW);
+
+        cont.add(east,BorderLayout.WEST);
+        collegeList = new CollegeList();
+
+        //East is the info panels for each person
+        JPanel west = new JPanel();
+        JTabbedPane generatorInfoPanels = new JTabbedPane();
+        fontChangableComps.add(generatorInfoPanels);
+
         generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false));
+        generatorInfoPanels.add("SAT Range", infoDisplayWindow("SAT 25th Percentile, and 75th percentile", "getAllSATDeviationRange", false));
+        generatorInfoPanels.add("Acceptance Rate", infoDisplayWindow("College Accpetance rate", "getAllAcceptanceRates",false));
+
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -459,6 +535,12 @@ public class MainGUI {
                 return collegeList.getAllEnrollement(bar);
             case "getAllSATPolicy":
                 return collegeList.getAllSATPolicy(bar);
+            case "getUniversityRequirmentsLink":
+                return collegeList.getAllUniversityRequirmentsLink(bar);
+            case "getAllAcceptanceRates":
+                return collegeList.getAllAcceptanceRates(bar);
+            case "getAllSATDeviationRange":
+                return collegeList.getAllSATDeviationRange(bar);
             default:
                 return  "";
         }
@@ -475,24 +557,6 @@ public class MainGUI {
         });
     }
 
-    public JPanel searchPanel ()
-    {
-        JPanel cont = new JPanel(new BorderLayout());
-
-        //Search Bar
-        JPanel search = new JPanel(new FlowLayout());
-        JTextField searchEntry = new JTextField();
-        searchEntry.setPreferredSize(new Dimension(400,30));
-        JButton searchButton = new JButton("Search");
-        search.add(searchEntry);
-        search.add(searchButton);
-        cont.add(search, BorderLayout.NORTH);
-
-        //search results
-        cont.add(searchResults(new CollegeSearchCard()), BorderLayout.CENTER);
-
-        return cont;
-    }
 
     public JPanel multiSearchPanel()
     {
@@ -552,29 +616,7 @@ public class MainGUI {
         return cont;
     }
 
-    public JPanel searchResults(CollegeSearchCard searchCard)
-    {
-        //data entry, replaced with actual card data later.
-        String name = "dummy";
-        String location = "dummy location";
 
-        //main container outside all the stuff
-        JPanel cont = new JPanel();
-        cont.setBorder(new BorderUIResource.EtchedBorderUIResource());
-
-        //basic college info
-        JPanel basicInfo = new JPanel(new FlowLayout());
-        JLabel nameLabel = new JLabel(name);
-        basicInfo.add(nameLabel);
-        JPanel emptySpace = new JPanel();
-        emptySpace.setPreferredSize(new Dimension(500,20));
-        basicInfo.add(emptySpace);
-        JLabel locationLabel = new JLabel(location);
-        basicInfo.add(locationLabel);
-        cont.add(basicInfo);
-
-        return cont;
-    }
 
 
 
@@ -597,26 +639,23 @@ public class MainGUI {
         JPanel settings = mainGUI.settingsPanel();
         JPanel help = mainGUI.helpPanel();
         JPanel multiSearch = mainGUI.multiSearchPanel();
+        JPanel SATMain = mainGUI.mainPanelSAT();
         //JPanel searchBar = mainGUI.searchPanel();
 
         //make Jtabbed pane
         int iconWidth = 25;
         int iconHeight = 25;
         JTabbedPane mainFrame = new JTabbedPane();
-        mainFrame.addTab("College List", main);
-        mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/small_list (1).png"), iconWidth,iconHeight));
-        //mainFrame.addTab("MultiSearch", multiSearch);
-        //mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/biglist.png"), iconWidth,iconHeight));
+        mainFrame.addTab("Basic Attributes", main);
+        mainFrame.addTab("SAT Data", SATMain);
         mainFrame.addTab("Settings", settings);
-        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
         mainFrame.addTab("Help", help);
-        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
-
-
-        //mainFrame.addTab("Search bar", searchBar);
+        mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/small_list (1).png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/SATicon.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(3, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
         frame.setContentPane(mainFrame);
 
-        //ImageIcon img = new ImageIcon("main/src/main/java/org/example/icon.png");
         ImageIcon img = new ImageIcon(MainGUI.class.getResource("/org/example/icon.png"));
         System.out.println();
 
