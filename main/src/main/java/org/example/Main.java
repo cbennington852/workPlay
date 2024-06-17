@@ -33,6 +33,9 @@ public class Main {
             SAT/ACT test optianl scores
             https://fairtest.org/test-optional-list/
 
+            A thing that needs webscraping for SAT/ACT scores
+            https://www.compassprep.com/college-profiles/
+
             or
 
             For student population add some sort of toggle between grad and undergrad

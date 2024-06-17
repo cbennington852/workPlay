@@ -276,7 +276,6 @@ public class College {
         DataLocater loc = new DataLocater(workSheet);
         String horizantalName = "TST";
         String val =  loc.getCell(horizantalName,name).getStringCellValue();
-        //System.out.println(name);
         if (Objects.equals(val, "INSTNM"))
         {
             return "Data not found";
