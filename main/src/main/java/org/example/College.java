@@ -268,7 +268,7 @@ public class College {
         return false;
     }
 
-    public String isTestOptinal()
+    public String getTestingPolicy()
     {
         //System.out.println(name);
         DataGrabber grabby =  DataGrabber.getDataGrabber();
@@ -278,7 +278,16 @@ public class College {
         String val =  loc.getCell(horizantalName,name).getStringCellValue();
         if (Objects.equals(val, "INSTNM"))
         {
-            return "Data not found";
+            //did not find the SAT data, will not use the compass data set
+            String funny = CompassDataFinder.getTestingPolicy(inputName,name);
+            if (funny.equals("College data Not Found"))
+            {
+                return "Data not found";
+            }
+            else {
+                return funny;
+            }
+
         }
         return val;
     }

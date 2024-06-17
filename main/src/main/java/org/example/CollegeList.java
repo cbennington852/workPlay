@@ -85,7 +85,7 @@ public class CollegeList {
 
         for (int x = 0; x < colleges.size(); x++)
         {
-            result += colleges.get(x).isTestOptinal()+"\n";
+            result += colleges.get(x).getTestingPolicy()+"\n";
             double proggress  = ((double) x /size) * 100;
             int val = (int) proggress;
             bar.setValue(val);
