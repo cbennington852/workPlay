@@ -27,11 +27,12 @@ public class MainGUI {
 
     CollegeList collegeList;
 
-    JTextArea collegeListTextArea;
+    public  JTextArea  collegeListTextArea;
 
-    String collegeListInput;
+    public JTextArea  collegeListTextAreaSAT;
 
-    JTextArea collegeListTextAreaMultiSearch;
+
+
 
     JProgressBar bar = new JProgressBar(JProgressBar.HORIZONTAL,0,100);
 
@@ -303,7 +304,7 @@ public class MainGUI {
         eastNorth.add(typingtext, BorderLayout.CENTER);
 
         east.add(eastNorth, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(false), BorderLayout.CENTER);
+        east.add(collegeListDisplayWindow(1), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 
         cont.add(east,BorderLayout.WEST);
@@ -313,11 +314,11 @@ public class MainGUI {
         JPanel west = new JPanel();
         JTabbedPane generatorInfoPanels = new JTabbedPane();
         fontChangableComps.add(generatorInfoPanels);
-        generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState", false));
-        generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false));
-        generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false));
-        generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false));
-        generatorInfoPanels.addTab("Requirements", infoDisplayWindow("College Admission Requirments", "getAllUniversityRequirmentsLink", false));
+        generatorInfoPanels.addTab("State",infoDisplayWindow("State", "getAllState", false,0));
+        generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false,0));
+        generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false,0));
+        generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false,0));
+        generatorInfoPanels.addTab("Requirements", infoDisplayWindow("College Admission Requirments", "getUniversityRequirmentsLinkCod", false,0));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
@@ -376,9 +377,9 @@ public class MainGUI {
             }
         });
         eastNorth.add(typingtext, BorderLayout.CENTER);
-
+        JTextArea thisText = new JTextArea();
         east.add(eastNorth, BorderLayout.NORTH);
-        east.add(collegeListDisplayWindow(false, collegeListTextArea), BorderLayout.CENTER);
+        east.add(collegeListDisplayWindow(0), BorderLayout.CENTER);
         east.setPreferredSize(COLLEGE_LIST_WINDOW);
 
         cont.add(east,BorderLayout.WEST);
@@ -389,9 +390,9 @@ public class MainGUI {
         JTabbedPane generatorInfoPanels = new JTabbedPane();
         fontChangableComps.add(generatorInfoPanels);
 
-        generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false));
-        generatorInfoPanels.add("SAT Range", infoDisplayWindow("SAT 25th Percentile, and 75th percentile", "getAllSATDeviationRange", false));
-        generatorInfoPanels.add("Acceptance Rate", infoDisplayWindow("College Accpetance rate", "getAllAcceptanceRates",false));
+        generatorInfoPanels.add("Testing Policy", infoDisplayWindow("SAT/ACT Testing Policy", "getAllSATPolicy",false,1));
+        generatorInfoPanels.add("SAT Range", infoDisplayWindow("SAT 25th Percentile, and 75th percentile", "getAllSATDeviationRange", false,1));
+        generatorInfoPanels.add("Acceptance Rate", infoDisplayWindow("College Accpetance rate", "getAllAcceptanceRates",false,1));
 
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
@@ -405,22 +406,31 @@ public class MainGUI {
         return cont;
     }
 
-    public JPanel collegeListDisplayWindow(boolean multiSearch, JTextArea theCollegeListTextArea)
+    public JPanel collegeListDisplayWindow(int panel)
     {
         JPanel cont = new JPanel(new BorderLayout());
         JLabel funnn = new JLabel("College List");
         fontChangableComps.add(funnn);
         cont.add(funnn, BorderLayout.NORTH);
 
-        theCollegeListTextArea = new JTextArea();
-        fontChangableComps.add(theCollegeListTextArea);
-        theCollegeListTextArea.setBorder(new JTextField().getBorder());
-        cont.add(theCollegeListTextArea, BorderLayout.CENTER);
-
+        if (panel == 1)
+        {
+            collegeListTextAreaSAT = new JTextArea();
+            fontChangableComps.add(collegeListTextAreaSAT);
+            collegeListTextAreaSAT.setBorder(new JTextField().getBorder());
+            cont.add(collegeListTextAreaSAT, BorderLayout.CENTER);
+        }
+        else
+        {
+            collegeListTextArea = new JTextArea();
+            fontChangableComps.add(collegeListTextArea);
+            collegeListTextArea.setBorder(new JTextField().getBorder());
+            cont.add(collegeListTextArea, BorderLayout.CENTER);
+        }
         return cont;
     }
 
-    public JPanel infoDisplayWindow(String name, String methodCalled, boolean addToList)
+    public JPanel infoDisplayWindow(String name, String methodCalled, boolean addToList, int panel)
     {
         JPanel cont = new JPanel(new BorderLayout());
         if (addToList)
@@ -477,16 +487,19 @@ public class MainGUI {
                 //call backend stuff
                 //calls on a thread so the user can still use the buttons while this is running
                 Thread thread = new Thread(() -> {
-                    collegeListInput = collegeListTextArea.getText();
+                    String collegeListInput = "";
+                    if(panel == 1)
+                    {
+                        collegeListInput = collegeListTextArea.getText();
+                    }
+                    else {
+                        collegeListInput = collegeListTextAreaSAT.getText();
+                    }
+
                     // Stuff you want to do.
-                    if (addToList == true)
-                    {
-                        collegeList.collegeListInput(collegeListInput + '\n');
-                    }
-                    else
-                    {
-                        collegeList.collegeListInput(collegeListInput+ '\n');
-                    }
+
+                    collegeList.collegeListInput(collegeListInput + '\n');
+
                     area.setText(methodHandler(methodCalled));
                     bottom.remove(bar);
                 });
@@ -572,7 +585,7 @@ public class MainGUI {
         JPanel main = mainGUI.mainPanel();
         JPanel settings = mainGUI.settingsPanel();
         JPanel help = mainGUI.helpPanel();
-        JPanel multiSearch = mainGUI.multiSearchPanel();
+
         JPanel SATMain = mainGUI.mainPanelSAT();
         //JPanel searchBar = mainGUI.searchPanel();
 

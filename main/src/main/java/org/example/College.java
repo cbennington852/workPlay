@@ -281,6 +281,7 @@ public class College {
         {
             return "Requirements";
         }
+        System.out.println("funny????");
         return "=HYPERLINK(\"" + linky + "\", \"" + "Requirements" + "\")";
     }
 

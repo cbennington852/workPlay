@@ -84,7 +84,7 @@ public class CollegeList {
     {
         String result = "";
         int size = colleges.size();
-
+        System.out.println("funny??erve??");
         for (int x = 0; x < colleges.size(); x++)
         {
             result += colleges.get(x).getUniversityRequirmentsLink()+"\n";
