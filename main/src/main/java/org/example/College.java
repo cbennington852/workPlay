@@ -287,7 +287,13 @@ public class College {
 
     public String getSATDeviationRange()
     {
-        return CompassDataFinder.getSatStandardDeviationRange(inputName,name);
+        String linky = CompassDataFinder.getSatStandardDeviationRange(inputName,name);
+        if (linky.equalsIgnoreCase("—"))
+        {
+            return "Data is blank";
+        }
+        System.out.println("funny????");
+        return "=HYPERLINK(\"" + linky + "\", \"" + "Requirements" + "\")";
     }
 
     public String getTestingPolicy()

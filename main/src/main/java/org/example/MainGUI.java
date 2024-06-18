@@ -318,7 +318,7 @@ public class MainGUI {
         generatorInfoPanels.addTab("City",infoDisplayWindow("City", "getAllCity", false,0));
         generatorInfoPanels.addTab("Virtual Tours",infoDisplayWindow("Virtual Tour Links", "getAllVirtualTourLinks", false,0));
         generatorInfoPanels.addTab("Net Price Links", infoDisplayWindow("Net Price Calculator Links", "getAllNetPriceCalcLink", false,0));
-        generatorInfoPanels.addTab("Requirements", infoDisplayWindow("College Admission Requirments", "getUniversityRequirmentsLinkCod", false,0));
+        generatorInfoPanels.addTab("Requirements", infoDisplayWindow("College Admission Requirments", "getUniversityRequirmentsLink", false,0));
         west.add(generatorInfoPanels);
         cont.add(west,BorderLayout.CENTER);
 
