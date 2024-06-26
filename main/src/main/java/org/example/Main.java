@@ -34,7 +34,7 @@ public class Main {
             https://fairtest.org/test-optional-list/
 
             A thing that needs webscraping for SAT/ACT scores
-            https://www.compassprep.com/college-profiles/
+            https://www.compassprep.com/college-profiles/I
 
             or
 

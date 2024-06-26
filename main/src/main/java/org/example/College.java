@@ -292,8 +292,8 @@ public class College {
         {
             return "Data is blank";
         }
-        System.out.println("funny????");
-        return "=HYPERLINK(\"" + linky + "\", \"" + "Requirements" + "\")";
+        //System.out.println("funny????");
+        return linky;
     }
 
     public String getTestingPolicy()
