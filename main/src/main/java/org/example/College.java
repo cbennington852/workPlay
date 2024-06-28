@@ -292,7 +292,6 @@ public class College {
         {
             return "Data is blank";
         }
-        //System.out.println("funny????");
         return linky;
     }
 

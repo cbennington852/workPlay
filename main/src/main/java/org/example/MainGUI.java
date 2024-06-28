@@ -56,8 +56,7 @@ public class MainGUI {
             "\n EX: Washington -> Washington State University" +
             "\n University names automaticly appended" +
             "\n EX: gonzaga -> Gonzaga Univeristy" +
-            "\n not case sensitive"+
-            "\n Spaces are ignored.";
+            "\n not case sensitive";
 
 
     public JPanel settingsPanel ()
@@ -184,7 +183,8 @@ public class MainGUI {
         JPanel help = new JPanel();
         help.setLayout(new BoxLayout(help, BoxLayout.Y_AXIS));
         JTextArea j1 = new JTextArea("Confused on how to use this application? " +
-                "\n There is a helpful tutorial linked below");
+                "\n There is a helpful tutorial linked below"
+                );
         fontChangableComps.add(j1);
         help.add(j1);
         j1.setEditable(false);
@@ -204,7 +204,9 @@ public class MainGUI {
         bugReport.setLayout(new BoxLayout(bugReport, BoxLayout.Y_AXIS));
         JTextArea text = new JTextArea("Found a Bug? \n Report the bug here, by emailing me \n c.bennington852@gmail.com \n\n\n" +
                 "This project is made and maintained by Charles Bennington, a current student at Gonzaga" +
-                "\n and part of the graduating class of 2026. ");
+                "\n and part of the graduating class of 2026. " +
+                "\n Link to Real Frequency Sheet: " +
+                "\n https://docs.google.com/spreadsheets/d/17wKRDkAusqiP_6nfOZsMGspMoAPYAx92EnXECSQ0syg/edit?usp=sharing");
 
         text.setEditable(false);
         fontChangableComps.add(text);
