@@ -9,7 +9,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.StringSelection;
@@ -599,13 +598,13 @@ public class MainGUI {
         mainFrame.addTab("SAT Data", SATMain);
         mainFrame.addTab("Settings", settings);
         mainFrame.addTab("Help", help);
-        mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/small_list (1).png"), iconWidth,iconHeight));
-        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/SATicon.png"), iconWidth,iconHeight));
-        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/gear.png"), iconWidth,iconHeight));
-        mainFrame.setIconAt(3, mainGUI.getImage(MainGUI.class.getResource("/org/example/output-onlinepngtools.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(0, mainGUI.getImage(MainGUI.class.getResource("/org/example/images/small_list (1).png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(1, mainGUI.getImage(MainGUI.class.getResource("/org/example/images/SATicon.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(2, mainGUI.getImage(MainGUI.class.getResource("/org/example/images/gear.png"), iconWidth,iconHeight));
+        mainFrame.setIconAt(3, mainGUI.getImage(MainGUI.class.getResource("/org/example/images/output-onlinepngtools.png"), iconWidth,iconHeight));
         frame.setContentPane(mainFrame);
 
-        ImageIcon img = new ImageIcon(MainGUI.class.getResource("/org/example/icon.png"));
+        ImageIcon img = new ImageIcon(MainGUI.class.getResource("/org/example/images/icon.png"));
         System.out.println();
 
         frame.setIconImage(img.getImage());

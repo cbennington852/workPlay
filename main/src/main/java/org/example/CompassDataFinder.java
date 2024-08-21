@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class CompassDataFinder {
-    public static URL url = MainGUI.class.getResource("/org/example/ACT webscraped Compass.txt");
+    public static URL url = MainGUI.class.getResource("/org/example/SAT and ACT webscraped data Compass.txt");
     ///////////////////////////////////////////////////////////////////
     //FACADE
     ///////////////////////////////////////////////////////////////////
