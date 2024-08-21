@@ -13,6 +13,8 @@ public class DataGrabber {
 
     private final XSSFSheet legallyAquuiredSATData;
 
+    private final XSSFSheet SATDataSheet;
+
     //FOR THE UNIVERSITY SHEET FUNNY
 
     private DataGrabber ()
@@ -36,6 +38,15 @@ public class DataGrabber {
         String sheetName3 = "Sheet1";
         ExelUtils utils3 = new ExelUtils(exelPath3,sheetName3);
         realSheet = utils3.getSheet();
+
+        String exelPath4 = "College SAT.ACT data as exel.xlsx";
+        String sheetName4 = "Sheet 1";
+        ExelUtils utils4 = new ExelUtils(exelPath4,sheetName4);
+        SATDataSheet = utils4.getSheet();
+    }
+
+    public XSSFSheet getSATDataSheetSheet() {
+        return SATDataSheet;
     }
 
     public static DataGrabber getDataGrabber()

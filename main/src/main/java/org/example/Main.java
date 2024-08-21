@@ -3,9 +3,14 @@ package org.example;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.IntelliJTheme;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel;
 
 import javax.swing.*;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.multi.MultiLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.plaf.synth.SynthLookAndFeel;
 import java.awt.*;
 
@@ -48,16 +53,29 @@ public class Main {
             use https://stackoverflow.com/questions/18134718/java-quickest-way-to-check-if-url-exists
             To check and see if link exists. Should be very easy. maybe only check it for one link
             EX: student life, and then have it break for a certain amount of time, so its not a cyber attack.
-
-            3409
          */
         FlatLightLaf.setup();
+
+
 
         //add the manger
         try {
             UIManager UIManager = new UIManager();
-            UIManager.setLookAndFeel( new FlatIntelliJLaf());
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+            //UIManager.setLookAndFeel( VTerminalLookAndFeel.getInstance(12));
+
+            //Terminal
+
+            //UIManager.setLookAndFeel(new SynthLookAndFeel());
+            //broken
+
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+            //cute
+
+            //UIManager.setLookAndFeel(new MetalLookAndFeel());
+
+            //UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            //funny
+
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }

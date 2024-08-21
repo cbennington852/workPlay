@@ -24,6 +24,7 @@ public class DataLocater {
         XSSFRow names = sheet.getRow(0);
         for (int x = 0; x < names.getPhysicalNumberOfCells(); x++)
         {
+            //System.out.println(names.getCell(x).getStringCellValue());
             if (names.getCell(x).getStringCellValue().equalsIgnoreCase(horizantalName))
             {//found the right row to pull from
                 horizantalPosition = x;

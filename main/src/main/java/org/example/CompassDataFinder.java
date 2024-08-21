@@ -1,8 +1,11 @@
 package org.example;
 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class CompassDataFinder {
@@ -12,22 +15,47 @@ public class CompassDataFinder {
     ///////////////////////////////////////////////////////////////////
     public static String getAcceptanceRate(String inputName, String name)
     {
-        return getAttibuteWithCode(inputName, name, 22, 1, '<'); //numm commas betwen there and other attributes
+        //return getAttibuteWithCode(inputName, name, 22, 1, '<'); //numm commas betwen there and other attributes
+        return getInfo(inputName, name, "Arate");
     }
 
     public static String getTestingPolicy(String inputName, String name)
     {
-        return getAttibuteWithCode(inputName, name, 16, 1, '<'); //numm commas betwen there and other attributes
+        //return getAttibuteWithCode(inputName, name, 16, 1, '<'); //numm commas betwen there and other attributes
+        return getInfo(inputName, name, "SATSummary");
     }
 
     public static String getUniversityRequirments(String inputName, String name)
     {
         return getAttibuteWithCode(inputName, name, 3, 0 ,'\"'); //numm commas betwen there and other attributes
+
     }
+
 
     public static String getSatStandardDeviationRange(String inputName, String name)
     {
-        return getAttibuteWithCode(inputName, name, 24, 1 ,'<');
+        //return getAttibuteWithCode(inputName, name, 24, 1 ,'<');
+        return getInfo(inputName, name, "SATDev");
+    }
+
+    ////////
+    //get exel silly
+    ////////
+
+    public static String getInfo(String inputName, String name, String reasourceName)
+    {
+        DataGrabber grabby =  DataGrabber.getDataGrabber();
+        XSSFSheet workSheet = grabby.getSATDataSheetSheet();
+        System.out.println(workSheet);
+        System.out.println(workSheet.getPhysicalNumberOfRows());
+        DataLocater loc = new DataLocater(workSheet);
+        String horizantalName = reasourceName;
+        String val =  loc.getCell(horizantalName,name).getStringCellValue();
+        if (Objects.equals(val, "INSTNM"))
+        {
+            return "data not found";
+        }
+        return val;
     }
 
 

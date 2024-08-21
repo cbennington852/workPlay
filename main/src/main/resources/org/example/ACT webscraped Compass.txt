@@ -1,3 +1,4 @@
+<table>
 <tr class="row-2 even">
 	<td class="column-1"><a href="https://www.admissions.caltech.edu/apply/first-year-freshman-applicants/application-requirements" target="_blank" rel="noopener">California Institute of Technology</a></td><td class="column-2"><a href="https://www.caltech.edu/about/news/caltech-restores-standardized-test-requirement-for-undergraduate-admission" target="_blank" rel="noopener">Test Required</a></td><td class="column-3">Caltech requires students to submit SAT or ACT scores as part of the application process. CalTech does not offer merit-based aid.</td><td class="column-4">16626</td><td class="column-5">2.69%</td><td class="column-6">—</td><td class="column-7">—</td>
 </tr><tr class="row-3 odd">
@@ -833,3 +834,4 @@
 </tr><tr class="row-418 even">
 	<td class="column-1"><a href="https://www.weber.edu/Admissions/apply.html" target="_blank" rel="noopener">Weber State</a></td><td class="column-2"><a href="https://www.weber.edu/Admissions/apply.html" target="_blank" rel="noopener">Test Optional (Permanent)</a></td><td class="column-3">Weber State University offers a test optional policy, which allows first-year applicants to be considered for admission without SAT or ACT scores. However, scores are recommended to help determine scholarship eligibility and Math &amp; English placement.</td><td class="column-4">7357</td><td class="column-5">100.00%</td><td class="column-6">—</td><td class="column-7">18–25</td>
 </tr></tbody>
+</table>
